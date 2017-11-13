@@ -22,6 +22,10 @@ Just clone the repository and import it to Eclipse and you are ready to go.
 
 Juat jar the project within Eclipse export tool.
 
+## TODOS
+
+It's hard to say that todos is everything.
+
 ## Authors
 
 * **Pisit Wajanasara**
