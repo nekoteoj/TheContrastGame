@@ -20,11 +20,21 @@ Just clone the repository and import it to Eclipse and you are ready to go.
 
 ## Deployment
 
-Juat jar the project within Eclipse export tool.
+Just jar the project within Eclipse export tool.
+
+## Implemented
+* Gravity
+* Movement
+* Main Game Loop
+* Some Controller
+* Some Entity
 
 ## TODOS
 
-It's hard to say that todos is everything.
+* Game Map
+* Collision Checking
+* Most Entity
+* Game functionallity
 
 ## Authors
 
