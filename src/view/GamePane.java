@@ -13,18 +13,12 @@ public class GamePane extends Group {
 	private GameCanvas gameCanvas;
 	private GameMap gameMap;
 	private Thread gameLoop;
-	
-	public GameCanvas getGameCanvas() {
-		return gameCanvas;
-	}
 
 	public GamePane() {
 		super();
 		gameCanvas = new GameCanvas();
 		gameMap = new GameMap();
 		getChildren().add(gameCanvas);
-		
-		gameMap.initialize();
 		
 		gameLoop = new Thread(() ->  {
 			for (;;) {
@@ -46,10 +40,14 @@ public class GamePane extends Group {
 	
 	public void startGameLoop() {
 		gameLoop.start();
+		gameMap.initialize();
 	}
 	
 	public void stopGameLoop() {
 		gameLoop.interrupt();
 	}
 	
+	public GameCanvas getGameCanvas() {
+		return gameCanvas;
+	}
 }

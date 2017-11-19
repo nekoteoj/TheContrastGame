@@ -43,9 +43,7 @@ public class NormalHero extends Hero {
 	@Override
 	public void moveDownGravity() {
 		if (isOnAir()) {
-			if (vy <= 15) {
-				vy += 2;
-			}
+				vy += 3;
 		}
 	}
 
