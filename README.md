@@ -29,7 +29,7 @@ Just jar the project within Eclipse export tool.
 * Some Controller
 * Some Entity
 
-## TODOS
+## Todos
 
 * Game Map
 * Collision Checking
