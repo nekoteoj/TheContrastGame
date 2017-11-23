@@ -18,7 +18,7 @@ public class MoveManager {
 						.map(x -> (Movable) x)
 						.forEach(Movable::move);
 					try {
-						Thread.sleep(50);
+						Thread.sleep(40);
 					} catch (Exception except) {
 						System.out.println("Cannot Sleep Thread!!!");
 						except.printStackTrace();

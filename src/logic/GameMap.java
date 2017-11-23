@@ -8,6 +8,7 @@ import model.GameBackground;
 import model.NormalHero;
 import model.Renderable;
 import model.map.Floor;
+import model.map.TestFloor;
 
 public class GameMap {
 	
@@ -22,8 +23,12 @@ public class GameMap {
 		renderObjects.add(new GameBackground());
 		renderObjects.add(new NormalHero(0, 0));
 		entityObjects.add((Entity) renderObjects.get(1));
-		entityObjects.add(new Floor(0, 475, 800, 125));
-		entityObjects.add(new Floor(0, 425, 200, 50));
+		entityObjects.add(new TestFloor(0, 475, 800, 125));
+		entityObjects.add(new TestFloor(0, 425, 200, 50));
+		renderObjects.add((Renderable) entityObjects.get(1));
+		renderObjects.add((Renderable) entityObjects.get(2));
+		entityObjects.add(new TestFloor(200, 200, 100, 50));
+		renderObjects.add((Renderable) entityObjects.get(3));
 		GravityManager.startGravity(renderObjects);
 		MoveManager.startMove(renderObjects);
 	}

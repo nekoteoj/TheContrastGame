@@ -78,19 +78,17 @@ public class NormalHero extends Hero {
 	@Override
 	public void checkCollide() {
 		List<Entity> l = GameMap.getEntityObjects();
-		boolean onAir = true;
 		for (Entity o : l) {
 			if (this != o && o.isCollide(this)) {
 				fixCollide(o);
-				onAir = false;
 			}
 		}
-		setOnAir(onAir);
 	}
 
 	@Override
 	public void fixCollide(Entity other) {
-		if (position.second + height >= other.getPosition().second) {
+		//System.out.println("x = " + position.first + " | y = " + (position.second + height) + " | entity y = " + other.getPosition().second);
+		if (onAir && vy > 0 && position.second + height >= other.getPosition().second) {
 			onAir = false;
 			vy = 0;
 			position.second = other.getPosition().second - height;
@@ -102,6 +100,8 @@ public class NormalHero extends Hero {
 //				vx = 0;
 //				position.first = other.getPosition().first + width;
 //			}
+		} else if (position.second + height < other.getPosition().second) {
+			onAir = true;
 		}
 	}
 }
