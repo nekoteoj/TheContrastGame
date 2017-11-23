@@ -25,7 +25,10 @@ public class GameCanvasController {
 				} else if (code == KeyCode.UP) {
 					GameMap.getRenderObjects().parallelStream()
 						.filter(x -> x instanceof Hero)
-						.forEach(x -> ((Movable) x).setVy(-20));
+						.forEach(x -> {
+							((Movable) x).setVy(-20);
+							((Hero) x).setOnAir(true);
+						});
 				} else if (code == KeyCode.RIGHT) {
 					GameMap.getRenderObjects().parallelStream()
 						.filter(x -> x instanceof Hero)

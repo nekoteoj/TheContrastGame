@@ -52,4 +52,10 @@ public class BuffHero extends Hero {
 		return 0;
 	}
 
+	@Override
+	public boolean isCollide(Entity other) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
 }
