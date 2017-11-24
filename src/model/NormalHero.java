@@ -5,6 +5,8 @@ import java.util.List;
 
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
+import javafx.scene.shape.Rectangle;
+import javafx.scene.shape.Shape;
 import logic.GameMap;
 import model.utility.Pair;
 
@@ -22,7 +24,7 @@ public class NormalHero extends Hero {
 	protected boolean onAir;
 	
 	public NormalHero(int x, int y) {
-		super(x, y, 70, 99);
+		super(x, y, 70 - 25, 99);
 		vx = 0;
 		vy = 0;
 		onAir = true;
@@ -37,6 +39,8 @@ public class NormalHero extends Hero {
 	@Override
 	public void draw(GraphicsContext gc) {
 		gc.drawImage(imageFrame.get(0), position.first, position.second);
+		gc.setLineWidth(3);
+		gc.strokeRect(position.first, position.second, width, height);
 	}
 	
 	@Override
@@ -51,6 +55,14 @@ public class NormalHero extends Hero {
 		// TODO Auto-generated method stub
 		position.second += vy;
 		position.first += vx;
+		if (position.second < 0) {
+			position.second = 0;
+			vy = 0;
+		}
+		if (position.first < 0) {
+			position.first = 0;
+			vx = 0;
+		}
 		checkCollide();
 	}
 
@@ -78,30 +90,42 @@ public class NormalHero extends Hero {
 	@Override
 	public void checkCollide() {
 		List<Entity> l = GameMap.getEntityObjects();
+		boolean collideWithFloor = false;
 		for (Entity o : l) {
 			if (this != o && o.isCollide(this)) {
 				fixCollide(o);
+				if (vy > 0) {
+					collideWithFloor = true;
+				}
 			}
 		}
+		setOnAir(collideWithFloor == false);
 	}
 
 	@Override
 	public void fixCollide(Entity other) {
 		//System.out.println("x = " + position.first + " | y = " + (position.second + height) + " | entity y = " + other.getPosition().second);
-		if (onAir && vy > 0 && position.second + height >= other.getPosition().second) {
-			onAir = false;
+/*		if (onAir && position.second + height <= other.getPosition().second + other.getHeight()) {
+			//onAir = false;
+			System.out.println("We are here");
 			vy = 0;
 			position.second = other.getPosition().second - height;
-//			if (position.first + width >= other.getPosition().first) {
-//				vx = 0;
-//				position.first = other.getPosition().first - width;
-//			}
-//			if (position.first <= other.getPosition().first + other.width) {
-//				vx = 0;
-//				position.first = other.getPosition().first + width;
-//			}
 		} else if (position.second + height < other.getPosition().second) {
-			onAir = true;
+			//onAir = true;
+		}*/
+		if (!onAir && vx > 0 && position.first + width >= other.getPosition().first) {
+			vx = 0;
+			position.first = other.getPosition().first - getWidth() - 2;
+		} else if (!onAir && vx < 0 && position.first <= other.getPosition().first + other.width) {
+			vx = 0;
+			position.first = other.getPosition().first + other.getWidth() + 2;
+		}
+		if (isOnAir() && position.second + height <= other.getPosition().second + other.getHeight()) {
+			vy = 0;
+			position.second = other.getPosition().second - height;
+		} else if (isOnAir() && vy < 0 && position.second <= other.getPosition().second + other.getHeight()) {
+			vy = 0;
+			position.second = other.getPosition().second + other.getHeight();
 		}
 	}
 }
