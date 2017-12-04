@@ -35,12 +35,15 @@ public class GamePane extends Group {
 	}
 	
 	private void gameLoopCallback() {
-		GameMap.getRenderObjects().forEach(e -> e.draw(gameCanvas.getGraphicsContext2D()));
+		GameMap.getRenderObjects().forEach(e -> {
+			e.draw(gameCanvas.getGraphicsContext2D());
+		});
 	}
 	
 	public void startGameLoop() {
 		gameLoop.start();
 		gameMap.initialize();
+		gameMap.loadMap(1);
 	}
 	
 	public void stopGameLoop() {

@@ -8,7 +8,9 @@ import javafx.scene.image.Image;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.Shape;
 import logic.GameMap;
+import model.utility.ClassResourceUtility;
 import model.utility.Pair;
+import view.GameCanvas;
 
 public class NormalHero extends Hero {
 	
@@ -16,7 +18,7 @@ public class NormalHero extends Hero {
 	
 	static {
 		imageFrame = new ArrayList<>();
-		imageFrame.add(new Image("hero.png", 70, 99, true, true));
+		imageFrame.add(new Image(ClassResourceUtility.getResourcePath("img/hero.png"), 70, 99, true, true));
 	}
 
 	protected int vx;
@@ -38,9 +40,9 @@ public class NormalHero extends Hero {
 	
 	@Override
 	public void draw(GraphicsContext gc) {
-		gc.drawImage(imageFrame.get(0), position.first, position.second);
+		gc.drawImage(imageFrame.get(0), position.first - GameCanvas.getCurrentInstance().getStartX(), position.second);
 		gc.setLineWidth(3);
-		gc.strokeRect(position.first, position.second, width, height);
+		gc.strokeRect(position.first - GameCanvas.getCurrentInstance().getStartX(), position.second, width, height);
 	}
 	
 	@Override

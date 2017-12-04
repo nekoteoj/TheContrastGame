@@ -5,6 +5,7 @@ import java.util.Random;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 import model.Renderable;
+import view.GameCanvas;
 
 public class TestFloor extends Floor implements Renderable {
 
@@ -21,7 +22,7 @@ public class TestFloor extends Floor implements Renderable {
 	public void draw(GraphicsContext gc) {
 		gc.setStroke(Color.rgb(r, g, b));
 		gc.setLineWidth(4);
-		gc.strokeRect(position.first, position.second, width, height);
+		gc.strokeRect(position.first - GameCanvas.getCurrentInstance().getStartX(), position.second, width, height);
 	}
 
 }
