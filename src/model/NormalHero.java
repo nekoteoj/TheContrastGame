@@ -5,8 +5,6 @@ import java.util.List;
 
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
-import javafx.scene.shape.Rectangle;
-import javafx.scene.shape.Shape;
 import logic.GameMap;
 import model.utility.ClassResourceUtility;
 import model.utility.Pair;
@@ -21,15 +19,20 @@ public class NormalHero extends Hero {
 		imageFrame.add(new Image(ClassResourceUtility.getResourcePath("img/hero.png"), 70, 99, true, true));
 	}
 
+	protected int hp;
 	protected int vx;
 	protected int vy;
 	protected boolean onAir;
+	// 1 right 0 left
+	protected int direction;
 	
 	public NormalHero(int x, int y) {
 		super(x, y, 70 - 25, 99);
 		vx = 0;
 		vy = 0;
 		onAir = true;
+		direction = 1;
+		hp = 100;
 	}
 	
 	@Override
@@ -55,6 +58,12 @@ public class NormalHero extends Hero {
 	@Override
 	public void move() {
 		// TODO Auto-generated method stub
+		if (vx == 0 && vy == 0) {
+			return;
+		}
+		if (vx != 0) {
+			direction = vx > 0 ? 1 : 0;
+		}
 		position.second += vy;
 		position.first += vx;
 		if (position.second < 0) {
@@ -129,5 +138,35 @@ public class NormalHero extends Hero {
 			vy = 0;
 			position.second = other.getPosition().second + other.getHeight();
 		}
+	}
+	
+	@Override
+	public int getDirection() {
+		return direction;
+	}
+
+	@Override
+	public int getHp() {
+		// TODO Auto-generated method stub
+		return hp;
+	}
+
+	@Override
+	public void setHp(int amount) {
+		hp = amount;
+	}
+
+	@Override
+	public void decreaseHp(int amount) {
+		hp -= amount;
+		if (hp < 0) {
+			hp = 0;
+			dead();
+		}
+	}
+
+	@Override
+	public void dead() {
+		
 	}
 }

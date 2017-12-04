@@ -15,7 +15,7 @@ public class MoveManager {
 		if (move == null || move.isInterrupted()) {
 			move = new Thread(() -> {
 				for (;;) {
-					objects.stream()
+					objects.parallelStream()
 						.filter(x -> x instanceof Movable)
 						.map(x -> (Movable) x)
 						.forEach(x -> {

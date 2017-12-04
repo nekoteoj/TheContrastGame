@@ -2,8 +2,10 @@ package controller;
 
 import javafx.scene.input.KeyCode;
 import logic.GameMap;
+import model.Bullet;
 import model.Hero;
 import model.Movable;
+import model.NormalBullet;
 import view.GameCanvas;
 
 public class GameCanvasController {
@@ -34,6 +36,16 @@ public class GameCanvasController {
 						.filter(x -> x instanceof Hero)
 						.forEach(x -> ((Movable) x).setVx(10));
 				}
+			} else if (code.isWhitespaceKey()) {
+				 if (code == KeyCode.SPACE) {
+						Hero hero = GameMap.getRenderObjects().parallelStream()
+								.filter(x -> x instanceof Hero)
+								.map(x -> (Hero) x)
+								.findAny()
+								.get();
+						Bullet bullet = new NormalBullet(hero.getPosition().first + hero.getWidth(), hero.getPosition().second + hero.getHeight() / 2, 0, hero.getDirection());
+						GameMap.addEntity(bullet);
+					}
 			}
 		});
 		

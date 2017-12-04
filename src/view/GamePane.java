@@ -5,6 +5,8 @@ import java.util.concurrent.CopyOnWriteArrayList;
 
 import javafx.scene.Group;
 import logic.GameMap;
+import main.App;
+import model.Entity;
 import model.GameBackground;
 import model.Renderable;
 
@@ -35,7 +37,19 @@ public class GamePane extends Group {
 	}
 	
 	private void gameLoopCallback() {
-		GameMap.getRenderObjects().forEach(e -> {
+		GameMap.getRenderObjects()//.stream()
+//			.filter(x -> {
+//				if (x instanceof Entity) {
+//					Entity e = (Entity) x;
+//					if (gameCanvas.getStartX() <= e.getPosition().first && e.getPosition().first <= gameCanvas.getStartX() + App.SCREEN_WIDTH ||
+//							gameCanvas.getStartX() <= e.getPosition().first + e.getWidth() && e.getPosition().first + e.getWidth() <= gameCanvas.getStartX() + App.SCREEN_WIDTH) {
+//						return true;
+//					}
+//					return false;
+//				}
+//				return true;
+//			})
+			.forEach(e -> {
 			e.draw(gameCanvas.getGraphicsContext2D());
 		});
 	}

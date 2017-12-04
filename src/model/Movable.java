@@ -8,4 +8,5 @@ public interface Movable {
 	public int getVy();
 	public void checkCollide();
 	public void fixCollide(Entity other);
+	public int getDirection();
 }

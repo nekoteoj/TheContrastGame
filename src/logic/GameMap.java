@@ -16,6 +16,7 @@ import model.Entity;
 import model.GameBackground;
 import model.NormalHero;
 import model.Renderable;
+import model.Soilder;
 import model.map.Floor;
 import model.map.MapObject;
 import model.map.TestFloor;
@@ -27,8 +28,6 @@ public class GameMap {
 	private static List<Renderable> renderObjects = new CopyOnWriteArrayList<>();
 	private static List<Entity> entityObjects = new CopyOnWriteArrayList<>();
 	
-	private ClassLoader classLoader = getClass().getClassLoader();
-	
 	public GameMap() {
 		
 	}
@@ -36,8 +35,10 @@ public class GameMap {
 	public void initialize() {
 		renderObjects.add(new GameBackground());
 		renderObjects.add(new NormalHero(0, 0));
-		/*entityObjects.add((Entity) renderObjects.get(1));
-		entityObjects.add(new TestFloor(0, 475, 800, 125));
+		renderObjects.add(new Soilder(400, 0));
+		entityObjects.add((Entity) renderObjects.get(1));
+		entityObjects.add((Entity) renderObjects.get(2));
+		/*entityObjects.add(new TestFloor(0, 475, 800, 125));
 		entityObjects.add(new TestFloor(0, 425, 200, 50));
 		renderObjects.add((Renderable) entityObjects.get(1));
 		renderObjects.add((Renderable) entityObjects.get(2));
@@ -95,6 +96,18 @@ public class GameMap {
 	
 	public void loadMap(int map) {
 		loadMap(ClassResourceUtility.getResourceURI("map/map" + map + ".dat"));
+	}
+	
+	public static void addEntity(Entity e) {
+		entityObjects.add(e);
+		if (e instanceof Renderable) {
+			renderObjects.add((Renderable) e);
+		}
+	}
+	
+	public static void clearEntity() {
+		renderObjects.clear();
+		entityObjects.clear();
 	}
 	
 }
