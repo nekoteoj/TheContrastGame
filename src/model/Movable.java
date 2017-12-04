@@ -6,4 +6,6 @@ public interface Movable {
 	public void setVy(int vy);
 	public int getVx();
 	public int getVy();
+	public void checkCollide();
+	public void fixCollide(Entity other);
 }

@@ -2,8 +2,10 @@ package logic;
 
 import java.util.List;
 
+import model.Hero;
 import model.Movable;
 import model.Renderable;
+import view.GameCanvas;
 
 public class MoveManager {
 	
@@ -13,12 +15,17 @@ public class MoveManager {
 		if (move == null || move.isInterrupted()) {
 			move = new Thread(() -> {
 				for (;;) {
-					objects.parallelStream()
+					objects.stream()
 						.filter(x -> x instanceof Movable)
 						.map(x -> (Movable) x)
-						.forEach(Movable::move);
+						.forEach(x -> {
+							x.move();
+							if (x instanceof Hero) {
+								GameCanvas.getCurrentInstance().checkStartPoint((Hero) x);
+							}
+						});
 					try {
-						Thread.sleep(50);
+						Thread.sleep(40);
 					} catch (Exception except) {
 						System.out.println("Cannot Sleep Thread!!!");
 						except.printStackTrace();
