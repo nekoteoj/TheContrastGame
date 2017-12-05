@@ -19,6 +19,8 @@ public class NormalHero extends Hero {
 		imageFrame.add(new Image(ClassResourceUtility.getResourcePath("img/hero.png"), 70, 99, true, true));
 	}
 
+	
+	public static int DEFAULT_HP = 100;
 	protected int hp;
 	protected int vx;
 	protected int vy;
