@@ -16,7 +16,7 @@ public class MainMenuPane extends BorderPane {
 		sound = new AudioClip(ClassResourceUtility.getResourcePath("sound/mainmenusound.mp3"));
 	}
 	
-	private Button playButton = new Button("Start Game");
+//	private Button playButton = new Button("Start Game");
 	private Canvas mainMenuCanvas;
 	private Thread mainMenuLoop;
 	private Runnable mainMenuRun;
@@ -60,7 +60,7 @@ public class MainMenuPane extends BorderPane {
 	
 	public void startMainMenuLoop() {
 		sound.setCycleCount(AudioClip.INDEFINITE);
-		sound.play(0.9);
+		sound.play(0.8);
 		isMainMenuRunning = true;
 		mainMenuLoop = new Thread(mainMenuRun);
 		mainMenuLoop.start();
