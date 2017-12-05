@@ -32,7 +32,7 @@ public class App extends Application {
 		
 		viewManager.goTo("menu");
 	}
-
+	
 	public static void main(String[] args) {
 		Application.launch(args);
 	}
