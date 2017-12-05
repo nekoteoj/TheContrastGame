@@ -30,7 +30,7 @@ public class NormalBullet extends Bullet {
 	@Override
 	public void draw(GraphicsContext gc) {
 		gc.setFill(Color.RED);
-		gc.fillOval(position.first - 2 - GameCanvas.getCurrentInstance().getStartX(), position.second - 2, 4, 4);
+		gc.fillOval(position.first - GameCanvas.getCurrentInstance().getStartX(), position.second, 4, 4);
 	}
 
 	@Override
