@@ -33,6 +33,8 @@ public class GameMap {
 	}
 	
 	public void initialize() {
+		renderObjects.clear();
+		entityObjects.clear();
 		renderObjects.add(new GameBackground());
 		renderObjects.add(new NormalHero(0, 0));
 		renderObjects.add(new Soilder(400, 0));

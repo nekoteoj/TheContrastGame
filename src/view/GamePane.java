@@ -1,5 +1,6 @@
 package view;
 
+import java.net.URI;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
@@ -15,15 +16,18 @@ public class GamePane extends Group {
 	private GameCanvas gameCanvas;
 	private GameMap gameMap;
 	private Thread gameLoop;
+	private boolean isGameRunning;
+	private Runnable gameRun;
 
 	public GamePane() {
 		super();
 		gameCanvas = new GameCanvas();
 		gameMap = new GameMap();
 		getChildren().add(gameCanvas);
+		isGameRunning = false;
 		
-		gameLoop = new Thread(() ->  {
-			for (;;) {
+		gameRun = () ->  {
+			for (;isGameRunning ;) {
 				gameLoopCallback();
 				try {
 					Thread.sleep(17);
@@ -32,7 +36,7 @@ public class GamePane extends Group {
 					except.printStackTrace();
 				}
 			}
-		});
+		};
 		
 	}
 	
@@ -54,14 +58,24 @@ public class GamePane extends Group {
 		});
 	}
 	
-	public void startGameLoop() {
+	public void startGameLoop(int map) {
+		isGameRunning = true;
+		gameLoop = new Thread(gameRun);
 		gameLoop.start();
 		gameMap.initialize();
-		gameMap.loadMap(1);
+		gameMap.loadMap(map);
+	}
+	
+	public void startGameLoop(URI uri) {
+		isGameRunning = true;
+		gameLoop = new Thread(gameRun);
+		gameLoop.start();
+		gameMap.initialize();
+		gameMap.loadMap(uri);
 	}
 	
 	public void stopGameLoop() {
-		gameLoop.interrupt();
+		isGameRunning = false;
 	}
 	
 	public GameCanvas getGameCanvas() {
