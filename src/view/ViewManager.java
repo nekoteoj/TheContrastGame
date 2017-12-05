@@ -39,6 +39,10 @@ public class ViewManager {
 		if (paneMap.get(pageKey) instanceof GamePane) {
 			((GamePane) paneMap.get(pageKey)).getGameCanvas().requestFocus();
 		}
+		if (paneMap.get(pageKey) instanceof MainMenuPane) {
+			((MainMenuPane) paneMap.get(pageKey)).startMainMenuLoop();
+			((MainMenuPane) paneMap.get(pageKey)).getMainMenuCanvas().requestFocus();
+		}
 	}
 	
 	public Scene getScene(String key) {
@@ -51,6 +55,10 @@ public class ViewManager {
 	
 	public static ViewManager getInstance() {
 		return instance;
+	}
+	
+	public Stage getPrimaryStage() {
+		return primaryStage;
 	}
 	
 }
