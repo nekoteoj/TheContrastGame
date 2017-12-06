@@ -147,27 +147,15 @@ public class NormalHero extends Hero {
 	}
 
 	
-	public int getHp() {
-		// TODO Auto-generated method stub
-		return hp;
-	}
-
 	
-	public void setHp(int amount) {
-		hp = amount;
-	}
 
 	@Override
 	public void decreaseHp(int amount) {
 		hp -= amount;
 		if (hp < 0) {
 			hp = 0;
+		}
+		
 			dead();
 		}
 	}
-
-	@Override
-	public void dead() {
-		
-	}
-}
