@@ -21,6 +21,7 @@ public class NormalHero extends Hero {
 
 	
 	public static int DEFAULT_HP = 100;
+	public static int DEFAULT_MP = 100;
 	
 	
 	
