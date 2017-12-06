@@ -37,11 +37,20 @@ public abstract class Enemy extends MovableEntity implements Renderable, Attacka
 		hp = amount;
 	}
 
-	
+	@Override
+	public void decreaseHp(int amount) {
+		hp -= amount;
+		if (hp <= 0) {
+			hp = 0;
+			dead();
+		}
+	}	
 	
 @Override
 	public void dead() {
 		GameMap.getEntityObjects().remove(this);
 		GameMap.getRenderObjects().remove(this);
 	}
+
+public abstract Bullet fire(int type);
 }

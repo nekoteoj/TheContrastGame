@@ -5,6 +5,7 @@ import java.util.List;
 
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
+import javafx.scene.media.AudioClip;
 import logic.GameMap;
 import model.utility.ClassResourceUtility;
 import view.GameCanvas;
@@ -17,13 +18,6 @@ public class Soldier extends Enemy {
 		imageFrame = new ArrayList<>();
 		imageFrame.add(new Image(ClassResourceUtility.getResourcePath("img/hero.png"), 70, 99, true, true));
 	}
-
-	
-	
-	
-	 
-	
-	
 	
 	public Soldier(int x, int y) {
 		super(x, y, 70 - 25, 99);
@@ -43,11 +37,6 @@ public class Soldier extends Enemy {
 		gc.strokeRect(position.first - GameCanvas.getCurrentInstance().getStartX(), position.second, width, height);
 	}
 	
-	
-
-	
-		
-
 
 	@Override
 	public void checkCollide() {
@@ -90,20 +79,29 @@ public class Soldier extends Enemy {
 			position.second = other.getPosition().second + other.getHeight();
 		}
 	}
-	
-	
 
-	
+
+	public Bullet fire(int type) {
+		Bullet bullet; 
+		if (type == 1)
+		{
+			bullet = new NormalBullet(this.position.first + this.width, this.position.second + this.height / 2, 1, this.direction);
+		} else {
+			return null;
+		}
+GameMap.addEntity(bullet);
+return bullet;
+		
+	}
 
 
 
 	@Override
-	public void decreaseHp(int amount) {
-		hp -= amount;
-		if (hp <= 0) {
-			hp = 0;
-			dead();
-		}
+	public void dead() {
+		 new AudioClip(ClassResourceUtility.getResourcePath("sound/soldier_destroy.wav")).play();
+		super.dead();
 	}
+	
+	
 	
 }
