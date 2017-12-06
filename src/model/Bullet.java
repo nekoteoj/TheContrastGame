@@ -9,6 +9,7 @@ public abstract class Bullet extends MovableEntity implements Renderable{
 	protected int target; //0 to attack enemy, 1 to attack hero
 	protected Pair<Integer, Integer> startPosition;
 	protected int attackPoint;
+	protected int velocity;
 	
 	
 	

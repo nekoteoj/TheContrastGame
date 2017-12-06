@@ -7,15 +7,14 @@ import model.utility.ClassResourceUtility;
 import model.utility.Pair;
 import view.GameCanvas;
 
-public class CriticalBullet extends Bullet {
-	public final static int MP_USE = 10;
-	
-	public CriticalBullet(int x, int y, int target, int direction) {
-		super(x, y, 8, 8);
+public class TankBullet extends Bullet {
+public final static int MP_USE = 0;
+	public TankBullet(int x, int y, int target, int direction) {
+		super(x, y, 6, 6);
 		this.target = target;
-		this.attackPoint = 10;
-		this.velocity = 25;
-				new AudioClip(ClassResourceUtility.getResourcePath("sound/shot_3.wav")).play();
+		this.attackPoint = 2;
+		this.velocity = 20;
+		new AudioClip(ClassResourceUtility.getResourcePath("sound/shot_tank.wav")).play();
 		startPosition = Pair.makePair(x, y);
 		this.direction = direction;
 		if (direction == 1) {
@@ -27,8 +26,8 @@ public class CriticalBullet extends Bullet {
 
 	@Override
 	public void draw(GraphicsContext gc) {
-		gc.setFill(Color.ORANGE);
-		gc.fillOval(position.first - GameCanvas.getCurrentInstance().getStartX(), position.second, 8, 8);
+		gc.setFill(Color.BLUE);
+		gc.fillOval(position.first - GameCanvas.getCurrentInstance().getStartX(), position.second, 6, 6);
 	}
 
 }
