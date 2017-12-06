@@ -9,7 +9,7 @@ import logic.GameMap;
 import model.utility.ClassResourceUtility;
 import view.GameCanvas;
 
-public class Soilder extends Enemy {
+public class Soldier extends Enemy {
 
 	protected static List<Image> imageFrame;
 	
@@ -25,7 +25,7 @@ public class Soilder extends Enemy {
 	protected int direction;
 	protected int hp;
 	
-	public Soilder(int x, int y) {
+	public Soldier(int x, int y) {
 		super(x, y, 70 - 25, 99);
 		vx = 0;
 		vy = 0;
