@@ -1,5 +1,7 @@
 package model;
 
+import logic.GameMap;
+
 public abstract class Hero extends MovableEntity implements  Renderable, Attackable, GravityAffected, SpecialAbilityUser{
 
 	protected int hp;
@@ -81,7 +83,23 @@ public abstract class Hero extends MovableEntity implements  Renderable, Attacka
 			hp = 0;
 			dead();
 		}
-	}	
+	}
+	
+	public Bullet fire(int type) {
+		Bullet bullet; 
+		if (type == 1)
+		{
+			bullet = new NormalBullet(this.position.first + this.width, this.position.second + this.height / 2, 0, this.direction);
+		} else if ((type == 2) && (this.mp >= 10.0)) {
+			bullet = new CriticalBullet(this.position.first + this.width, this.position.second + this.height / 2, 0, this.direction);
+			this.decreaseMp(10.0);
+		} else {
+			return null;
+		}
+GameMap.addEntity(bullet);
+return bullet;
+		
+	}
 
 	@Override
 	public void dead() {
