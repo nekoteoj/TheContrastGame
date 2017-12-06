@@ -3,6 +3,7 @@ package model;
 public abstract class Hero extends MovableEntity implements  Renderable, Attackable, GravityAffected{
 
 	protected int hp;
+	protected double mp;
 
 	public Hero(int x, int y, int width, int height) {
 		super(x, y, width, height);
@@ -40,6 +41,45 @@ public abstract class Hero extends MovableEntity implements  Renderable, Attacka
 	}
 
 	
+	public double getMp() {
+		return mp;
+	}
+
+	public void setMp(int mp) {
+		this.mp = mp;
+	}
+	
+	public boolean isMpFull() {
+	return mp == 100.0;	
+	}
+	
+	public int getIntMp() {
+	return (int)Math.floor(this.mp);	
+	}
+	
+	public void increaseMp(double amount) {
+	mp += amount;
+	if (mp > 100.0) {
+		mp = 100.0;
+	}
+	}
+	
+	public void decreaseMp(double amount) {
+		mp -= amount;
+		if (mp <= 0) {
+			mp = 0.0;
+			}
+	}	
+	
+	@Override
+	public void decreaseHp(int amount) {
+		hp -= amount;
+		if (hp <= 0) {
+			hp = 0;
+			dead();
+		}
+	}	
+
 	@Override
 	public void dead() {
 //TODO if the hero dies, we should do what? decreasing lives or displaying game over screen?		
