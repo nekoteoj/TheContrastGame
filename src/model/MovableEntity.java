@@ -1,6 +1,6 @@
 package model;
 
-public abstract class MovableEntity extends Entity  implements Movable, GravityAffected{
+public abstract class MovableEntity extends Entity  implements Movable{
 	protected int vx;
 	protected int vy;
 	protected boolean onAir;
@@ -11,18 +11,8 @@ public abstract class MovableEntity extends Entity  implements Movable, GravityA
 		// TODO Auto-generated constructor stub
 	}
 
-	@Override
-	public boolean isOnAir() {
-		// TODO Auto-generated method stub
-		return onAir;
-	}
+	
 
-@Override
-	public void moveDownGravity() {
-		if (isOnAir()) {
-				vy += 3;
-		}
-	}
 
 @Override
 	public void move() {
@@ -63,10 +53,7 @@ public int getVx() {
 		this.vy = vy;
 	}
 
-	@Override
-	public void setOnAir(boolean onAir) {
-		this.onAir = onAir;
-	}
+	
 
 @Override
 	public int getDirection() {
