@@ -18,11 +18,11 @@ public class Soldier extends Enemy {
 		imageFrame.add(new Image(ClassResourceUtility.getResourcePath("img/hero.png"), 70, 99, true, true));
 	}
 
-	protected int vx;
-	protected int vy;
-	protected boolean onAir;
-	// 1 right 0 left
-	protected int direction;
+	
+	
+	
+	 
+	
 	
 	
 	public Soldier(int x, int y) {
@@ -34,11 +34,7 @@ public class Soldier extends Enemy {
 		hp = 5;
 	}
 	
-	@Override
-	public boolean isOnAir() {
-		// TODO Auto-generated method stub
-		return onAir;
-	}
+
 	
 	@Override
 	public void draw(GraphicsContext gc) {
@@ -47,55 +43,11 @@ public class Soldier extends Enemy {
 		gc.strokeRect(position.first - GameCanvas.getCurrentInstance().getStartX(), position.second, width, height);
 	}
 	
-	@Override
-	public void moveDownGravity() {
-		if (isOnAir()) {
-				vy += 3;
-		}
-	}
-
-	@Override
-	public void move() {
-		// TODO Auto-generated method stub
-		if (vx == 0 && vy == 0) {
-			return;
-		}
-		if (vx != 0) {
-			direction = vx > 0 ? 1 : 0;
-		}
-		position.second += vy;
-		position.first += vx;
-		if (position.second < 0) {
-			position.second = 0;
-			vy = 0;
-		}
-		if (position.first < 0) {
-			position.first = 0;
-			vx = 0;
-		}
-		checkCollide();
-	}
-
-	public int getVx() {
-		return vx;
-	}
-
-	public void setVx(int vx) {
-		this.vx = vx;
-	}
-
-	public int getVy() {
-		return vy;
-	}
-
-	public void setVy(int vy) {
-		this.vy = vy;
-	}
 	
-	@Override
-	public void setOnAir(boolean onAir) {
-		this.onAir = onAir;
-	}
+
+	
+		
+
 
 	@Override
 	public void checkCollide() {
@@ -139,12 +91,10 @@ public class Soldier extends Enemy {
 		}
 	}
 	
-	@Override
-	public int getDirection() {
-		return direction;
-	}
+	
 
 	
+
 
 
 	@Override
@@ -155,6 +105,5 @@ public class Soldier extends Enemy {
 			dead();
 		}
 	}
-
 	
 }

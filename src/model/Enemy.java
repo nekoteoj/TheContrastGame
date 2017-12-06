@@ -2,7 +2,7 @@ package model;
 
 import logic.GameMap;
 
-public abstract class Enemy extends Entity implements GravityAffected, Renderable, Attackable, Movable {
+public abstract class Enemy extends MovableEntity implements Renderable, Attackable{
 	protected int hp;
 	
 	public Enemy(int x, int y, int width, int height) {
@@ -19,6 +19,8 @@ public abstract class Enemy extends Entity implements GravityAffected, Renderabl
 		hp = amount;
 	}
 
+	
+	
 @Override
 	public void dead() {
 		GameMap.getEntityObjects().remove(this);
