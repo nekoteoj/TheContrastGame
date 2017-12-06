@@ -39,6 +39,8 @@ Just jar the project within Eclipse export tool.
 * Collision Checking
 * Most Entity
 * Game functionallity
+* Enemy bot
+* Iron out some bugs
 
 ## Authors
 

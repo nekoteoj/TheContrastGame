@@ -37,11 +37,28 @@ public abstract class Enemy extends MovableEntity implements Renderable, Attacka
 		hp = amount;
 	}
 
-	
+	@Override
+	public void decreaseHp(int amount) {
+		hp -= amount;
+		if (hp <= 0) {
+			hp = 0;
+			dead();
+		}
+	}	
 	
 @Override
 	public void dead() {
 		GameMap.getEntityObjects().remove(this);
 		GameMap.getRenderObjects().remove(this);
 	}
+
+public int findDirectionOfHero() {
+Hero hero = (Hero) GameMap.getEntityObjects().parallelStream().filter(x -> x instanceof Hero).findAny().get();
+	if (hero.getPosition().first < this.position.first) {
+return 0; //left		
+	} else {
+		return 1; //right
+	}
+	
+}
 }
