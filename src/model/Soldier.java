@@ -15,39 +15,55 @@ public class Soldier extends Enemy {
 	
 	static {
 		imageFrame = new ArrayList<>();
-		imageFrame.add(new Image(ClassResourceUtility.getResourcePath("img/hero.png"), 70, 99, true, true));
+		imageFrame.add(new Image(ClassResourceUtility.getResourcePath("img/model/Soldier/1R.png"), 50, 77, true, false));
+		imageFrame.add(new Image(ClassResourceUtility.getResourcePath("img/model/Soldier/2R.png"), 50, 77, true, false));
+		imageFrame.add(new Image(ClassResourceUtility.getResourcePath("img/model/Soldier/1L.png"), 50, 77, true, false));
+		imageFrame.add(new Image(ClassResourceUtility.getResourcePath("img/model/Soldier/2L.png"), 50, 77, true, false));
 	}
-
 	
-	
-	
-	 
-	
-	
+	private int walkState;
 	
 	public Soldier(int x, int y) {
-		super(x, y, 70 - 25, 99);
+		super(x, y, 50, 77);
 		vx = 0;
 		vy = 0;
 		onAir = true;
 		direction = 0;
 		hp = 5;
+		walkState = 2;
 	}
-	
 
-	
 	@Override
 	public void draw(GraphicsContext gc) {
-		gc.drawImage(imageFrame.get(0), position.first - GameCanvas.getCurrentInstance().getStartX(), position.second);
+		gc.drawImage(imageFrame.get(walkState), position.first - GameCanvas.getCurrentInstance().getStartX(), position.second);
 		gc.setLineWidth(3);
 		gc.strokeRect(position.first - GameCanvas.getCurrentInstance().getStartX(), position.second, width, height);
 	}
 	
-	
-
-	
-		
-
+	@Override
+	public void move() {
+		super.move();
+		if (direction == 1) {
+			if (vy != 0) {
+				walkState = 1;
+			} else if (vx == 0) {
+				walkState = 0;
+			} else {
+				walkState++;
+				walkState %= 2;
+			}
+		} else {
+			if (direction == 0) {
+				if (vy != 0) {
+					walkState = 3;
+				} else if (vx == 0) {
+					walkState = 2;
+				} else {
+					walkState = walkState == 2 ? 3 : 2;
+				}
+			}
+		}
+	}
 
 	@Override
 	public void checkCollide() {
@@ -90,12 +106,6 @@ public class Soldier extends Enemy {
 			position.second = other.getPosition().second + other.getHeight();
 		}
 	}
-	
-	
-
-	
-
-
 
 	@Override
 	public void decreaseHp(int amount) {
