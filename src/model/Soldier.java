@@ -81,14 +81,8 @@ public class Soldier extends Enemy {
 	}
 
 
-	public Bullet fire(int type) {
-		Bullet bullet; 
-		if (type == 1)
-		{
-			bullet = new NormalBullet(this.position.first + this.width, this.position.second + this.height / 2, 1, this.direction);
-		} else {
-			return null;
-		}
+	public Bullet fire() {
+		Bullet bullet = new NormalBullet(this.position.first + this.width, this.position.second + this.height / 2, 1, this.direction);
 GameMap.addEntity(bullet);
 return bullet;
 		

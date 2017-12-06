@@ -52,5 +52,13 @@ public abstract class Enemy extends MovableEntity implements Renderable, Attacka
 		GameMap.getRenderObjects().remove(this);
 	}
 
-public abstract Bullet fire(int type);
+public int findDirectionOfHero() {
+Hero hero = (Hero) GameMap.getEntityObjects().parallelStream().filter(x -> x instanceof Hero).findAny().get();
+	if (hero.getPosition().first < this.position.first) {
+return 0; //left		
+	} else {
+		return 1; //right
+	}
+	
+}
 }
