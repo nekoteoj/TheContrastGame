@@ -14,6 +14,10 @@ These instructions will get you a copy of the project up and running on your loc
 * ObjectAID Class UML Plugin
 * Oracle JavaFX Library or OpenJFX Library
 
+### Dependencies
+
+* Press Start 2P Font [Download Here](http://www.fontspace.com/codeman38/press-start-2p)
+
 ### Installing
 
 Just clone the repository and import it to Eclipse and you are ready to go.
