@@ -1,6 +1,6 @@
 package model;
 
-public abstract class Hero extends MovableEntity implements  Renderable, Attackable, GravityAffected{
+public abstract class Hero extends MovableEntity implements  Renderable, Attackable, GravityAffected, SpecialAbilityUser{
 
 	protected int hp;
 	protected double mp;
@@ -49,6 +49,7 @@ public abstract class Hero extends MovableEntity implements  Renderable, Attacka
 		this.mp = mp;
 	}
 	
+	@Override
 	public boolean isMpFull() {
 	return mp == 100.0;	
 	}
@@ -57,13 +58,15 @@ public abstract class Hero extends MovableEntity implements  Renderable, Attacka
 	return (int)Math.floor(this.mp);	
 	}
 	
+	@Override
 	public void increaseMp(double amount) {
 	mp += amount;
 	if (mp > 100.0) {
 		mp = 100.0;
 	}
 	}
-	
+
+	@Override
 	public void decreaseMp(double amount) {
 		mp -= amount;
 		if (mp <= 0) {

@@ -12,6 +12,7 @@ import main.App;
 import model.Entity;
 import model.GameBackground;
 import model.Renderable;
+import model.SpecialAbilityUser;
 
 public class GamePane extends Group {
 	
@@ -57,6 +58,11 @@ public class GamePane extends Group {
 //			})
 			.forEach(e -> {
 			e.draw(gameCanvas.getGraphicsContext2D());
+		});
+		GameMap.getEntityObjects().forEach(e -> {
+		if (e instanceof SpecialAbilityUser) {
+			((SpecialAbilityUser) e).increaseMp(0.02);
+		}
 		});
 	}
 	
