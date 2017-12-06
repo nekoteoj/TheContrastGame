@@ -95,13 +95,7 @@ public class NormalHero extends Hero {
 
 
 	
-	@Override
-	public void decreaseHp(int amount) {
-		hp -= amount;
-		if (hp <= 0) {
-			hp = 0;
-			dead();
-		}
-	}	
+	
+	
 
 	}

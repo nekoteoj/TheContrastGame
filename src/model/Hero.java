@@ -1,8 +1,11 @@
 package model;
 
-public abstract class Hero extends MovableEntity implements  Renderable, Attackable, GravityAffected{
+import logic.GameMap;
+
+public abstract class Hero extends MovableEntity implements  Renderable, Attackable, GravityAffected, SpecialAbilityUser{
 
 	protected int hp;
+	protected double mp;
 
 	public Hero(int x, int y, int width, int height) {
 		super(x, y, width, height);
@@ -40,6 +43,64 @@ public abstract class Hero extends MovableEntity implements  Renderable, Attacka
 	}
 
 	
+	public double getMp() {
+		return mp;
+	}
+
+	public void setMp(int mp) {
+		this.mp = mp;
+	}
+	
+	@Override
+	public boolean isMpFull() {
+	return mp == 100.0;	
+	}
+	
+	public int getIntMp() {
+	return (int)Math.floor(this.mp);	
+	}
+	
+	@Override
+	public void increaseMp(double amount) {
+	mp += amount;
+	if (mp > 100.0) {
+		mp = 100.0;
+	}
+	}
+
+	@Override
+	public void decreaseMp(double amount) {
+		mp -= amount;
+		if (mp <= 0) {
+			mp = 0.0;
+			}
+	}	
+	
+	@Override
+	public void decreaseHp(int amount) {
+		hp -= amount;
+		if (hp <= 0) {
+			hp = 0;
+			dead();
+		}
+	}
+	
+	public Bullet fire(int type) {
+		Bullet bullet; 
+		if (type == 1)
+		{
+			bullet = new NormalBullet(this.position.first + this.width, this.position.second + this.height / 2, 0, this.direction);
+		} else if ((type == 2) && (this.mp >= 10.0)) {
+			bullet = new CriticalBullet(this.position.first + this.width, this.position.second + this.height / 2, 0, this.direction);
+			this.decreaseMp(10.0);
+		} else {
+			return null;
+		}
+GameMap.addEntity(bullet);
+return bullet;
+		
+	}
+
 	@Override
 	public void dead() {
 //TODO if the hero dies, we should do what? decreasing lives or displaying game over screen?		

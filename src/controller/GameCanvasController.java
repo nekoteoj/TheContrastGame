@@ -48,9 +48,12 @@ public class GameCanvasController {
 				if (code == KeyCode.Z) {
 					Hero hero = GameMap.getRenderObjects().parallelStream().filter(x -> x instanceof Hero).map(x -> (Hero) x)
 							.findAny().get();
-					Bullet bullet = new NormalBullet(hero.getPosition().first + hero.getWidth(),
-							hero.getPosition().second + hero.getHeight() / 2, 0, hero.getDirection());
-					GameMap.addEntity(bullet);
+					hero.fire(1);
+				}
+				if (code == KeyCode.X) {
+					Hero hero = GameMap.getRenderObjects().parallelStream().filter(x -> x instanceof Hero).map(x -> (Hero) x)
+							.findAny().get();
+					hero.fire(2);
 				}
 				pressedKey.add(code);
 			}
