@@ -87,14 +87,15 @@ public abstract class Hero extends MovableEntity implements  Renderable, Attacka
 	
 	public Bullet fire(int type) {
 		Bullet bullet; 
+		int fireXPosition = this.position.first + (direction == 1 ? this.width : 0);
 		if (type == 1)
 		{
-			bullet = new NormalBullet(this.position.first + this.width, this.position.second + this.height / 2, 0, this.direction);
+			bullet = new NormalBullet(fireXPosition, this.position.second + this.height / 2, 0, this.direction);
 		} else if ((type == 2) && (this.mp >= 10.0)) {
-			bullet = new CriticalBullet(this.position.first + this.width, this.position.second + this.height / 2, 0, this.direction);
+			bullet = new CriticalBullet(fireXPosition, this.position.second + this.height / 2, 0, this.direction);
 			this.decreaseMp(10.0);
 		} else if ((type == 3) && (isMpFull())) {
-			bullet = new Hadoken(this.position.first + this.width, this.position.second + this.height / 2, 0, this.direction);
+			bullet = new Hadoken(fireXPosition, this.position.second + this.height / 2, 0, this.direction);
 			this.setMp(0.0);
 		} else {
 			return null;

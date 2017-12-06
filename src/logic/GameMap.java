@@ -36,10 +36,10 @@ public class GameMap {
 		renderObjects.clear();
 		entityObjects.clear();
 		renderObjects.add(new GameBackground());
-		renderObjects.add(new NormalHero(0, 0));
-		renderObjects.add(new Soldier(400, 0));
-		entityObjects.add((Entity) renderObjects.get(1));
-		entityObjects.add((Entity) renderObjects.get(2));
+//		renderObjects.add(new NormalHero(0, 0));
+//		renderObjects.add(new Soldier(400, 0));
+//		entityObjects.add((Entity) renderObjects.get(1));
+//		entityObjects.add((Entity) renderObjects.get(2));
 		/*entityObjects.add(new TestFloor(0, 475, 800, 125));
 		entityObjects.add(new TestFloor(0, 425, 200, 50));
 		renderObjects.add((Renderable) entityObjects.get(1));
@@ -87,7 +87,7 @@ public class GameMap {
 				}
 				
 				try {
-					MapObject mo = MapObjectFactory.getMapObjectById(id, objectParam);
+					Entity mo = MapObjectFactory.getMapObjectById(id, objectParam);
 					entityObjects.add(mo);
 					if (mo instanceof Renderable) {
 						renderObjects.add((Renderable) mo);

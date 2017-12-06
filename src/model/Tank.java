@@ -7,8 +7,8 @@ import logic.GameMap;
 import model.utility.ClassResourceUtility;
 import view.GameCanvas;
 
-public class Tank extends Enemy{
-	
+public class Tank extends Enemy {
+
 	public Tank(int x, int y) {
 		super(x, y, 50, 100);
 		vx = 0;
@@ -41,23 +41,21 @@ return bullet;
 		super.dead();
 	}
 
+	@Override
+	public void decreaseHp(int amount) {
+		// TODO Auto-generated method stub
+		
+	}
 
-
-	
 	@Override
 	public void checkCollide() {
 		// TODO Auto-generated method stub
 		
 	}
 
-
-
 	@Override
 	public void fixCollide(Entity other) {
 		// TODO Auto-generated method stub
 		
 	}
-	
-	
-	
 }
