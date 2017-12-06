@@ -60,4 +60,7 @@ public int getVx() {
 		return direction;
 	}
 
+public abstract void checkCollide();
+public abstract void fixCollide(Entity other);
+
 }
