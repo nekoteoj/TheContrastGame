@@ -49,6 +49,13 @@ public class GameMap {
 		GravityManager.startGravity(renderObjects);
 		MoveManager.startMove(renderObjects);
 	}
+	
+	public void stop() {
+		renderObjects.clear();
+		entityObjects.clear();
+		GravityManager.stopGravity();
+		MoveManager.stopMove();
+	}
 
 	public static List<Renderable> getRenderObjects() {
 		return renderObjects;
@@ -58,15 +65,15 @@ public class GameMap {
 		return entityObjects;
 	}
 	
-	public void loadMap(URI fileURI) {
+	public void loadMap(URI fileURI) throws MapObjectNotFoundException {
 		try (Stream<String> stream = Files.lines(Paths.get(fileURI))) {
-			stream.forEach(line -> {
+			for (String line : (Iterable<String>) stream::iterator) {
 				
 				line = line.trim();
 				
 				// Ignore line Comment and empty line
 				if (line.length() <= 0 || line.charAt(0) == '#') {
-					return;
+					continue;
 				}
 		
 				int[] param = Stream.of(line.split("\\s+"))
@@ -87,9 +94,10 @@ public class GameMap {
 					}
 				} catch (MapObjectNotFoundException e) {
 					System.out.println("Load map error, Create map with nothing");
+					throw e;
 				}
 				
-			});
+			}
 		} catch (IOException e) {
 			System.err.println("Error : " + "Cannot load file from URI : " + fileURI);
 			e.printStackTrace();
@@ -97,7 +105,12 @@ public class GameMap {
 	}
 	
 	public void loadMap(int map) {
-		loadMap(ClassResourceUtility.getResourceURI("map/map" + map + ".dat"));
+		try {
+			loadMap(ClassResourceUtility.getResourceURI("map/map" + map + ".dat"));
+		} catch (MapObjectNotFoundException e) {
+			System.err.println("Internal Map file not found");
+			e.printStackTrace();
+		}
 	}
 	
 	public static void addEntity(Entity e) {

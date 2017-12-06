@@ -4,8 +4,10 @@ import java.net.URI;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
+import exception.MapObjectNotFoundException;
 import javafx.scene.Group;
 import logic.GameMap;
+import logic.MoveManager;
 import main.App;
 import model.Entity;
 import model.GameBackground;
@@ -66,7 +68,7 @@ public class GamePane extends Group {
 		gameMap.loadMap(map);
 	}
 	
-	public void startGameLoop(URI uri) {
+	public void startGameLoop(URI uri) throws MapObjectNotFoundException {
 		isGameRunning = true;
 		gameLoop = new Thread(gameRun);
 		gameLoop.start();
@@ -75,6 +77,7 @@ public class GamePane extends Group {
 	}
 	
 	public void stopGameLoop() {
+		gameMap.stop();
 		isGameRunning = false;
 	}
 	

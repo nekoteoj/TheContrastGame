@@ -1,5 +1,6 @@
 package view;
 
+import controller.MainController;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
@@ -62,12 +63,14 @@ public class MainMenuPane extends BorderPane {
 		sound.setCycleCount(AudioClip.INDEFINITE);
 		sound.play(0.8);
 		isMainMenuRunning = true;
+		MainController.getCurrentInstance().getMainMenuCanvasController().reset();
 		mainMenuLoop = new Thread(mainMenuRun);
 		mainMenuLoop.start();
 	}
 	
 	public void stopMainMenuLoop() {
 		isMainMenuRunning = false;
+		MainController.getCurrentInstance().getMainMenuCanvasController().reset();
 		sound.stop();
 	}
 	

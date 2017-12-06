@@ -5,7 +5,12 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
+import controller.MainController;
+import exception.MapObjectNotFoundException;
 import javafx.application.Platform;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.media.AudioClip;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
@@ -124,7 +129,16 @@ public class Menu {
 						e.printStackTrace();
 					}
 					ViewManager.getInstance().goTo("game");
-					gamePane.startGameLoop(selectedFile.toURI());
+					try {
+						gamePane.startGameLoop(selectedFile.toURI());
+					} catch (Exception e) {
+						gamePane.stopGameLoop();
+						ViewManager.getInstance().goTo("menu");
+						Alert alert = new Alert(AlertType.ERROR, "Invalid Map Format", ButtonType.OK);
+						alert.showAndWait();	
+						Platform.runLater(() -> ((MainMenuPane) ViewManager.getInstance().getPane("menu")).getMainMenuCanvas().requestFocus());
+						//e.printStackTrace();
+					}
 				}
 			} else if (selected == 2) {
 				clickSound.play();

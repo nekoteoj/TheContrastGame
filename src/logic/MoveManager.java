@@ -10,11 +10,12 @@ import view.GameCanvas;
 public class MoveManager {
 	
 	private static Thread move = null;
+	private static boolean isMoveRunning = false;
 	
 	public static void startMove(List<? extends Renderable> objects) {
-		if (move == null || move.isInterrupted()) {
+		isMoveRunning = true;
 			move = new Thread(() -> {
-				for (;;) {
+				while (isMoveRunning) {
 					objects.parallelStream()
 						.filter(x -> x instanceof Movable)
 						.map(x -> (Movable) x)
@@ -32,11 +33,10 @@ public class MoveManager {
 					}
 				}
 			});
-		}
 		move.start();
 	}
 	
-	public static void stopGravity() {
-		move.interrupt();
+	public static void stopMove() {
+		isMoveRunning = false;
 	}
 }
