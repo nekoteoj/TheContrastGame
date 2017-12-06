@@ -16,6 +16,9 @@ public class EnemySpawner {
 	this.min = min;
 	this.max = max;
 	this.boss = boss;
+	this.spawnSoldier(soldier);
+	this.spawnTank(tank);
+	this.spawnBoss();
 	}
 	
 		public int checkFloorLevel(int x) {
