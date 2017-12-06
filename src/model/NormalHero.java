@@ -24,6 +24,7 @@ public class NormalHero extends Hero {
 	}
 
 	public static int DEFAULT_HP = 100;
+	public static int DEFAULT_MP = 100;
 	private int walkState = 0;
 
 	public NormalHero(int x, int y) {
@@ -33,6 +34,7 @@ public class NormalHero extends Hero {
 		onAir = true;
 		direction = 1;
 		hp = 100;
+		mp = 100;
 	}
 	
 	@Override
