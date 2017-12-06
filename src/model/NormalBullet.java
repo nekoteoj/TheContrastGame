@@ -11,8 +11,8 @@ public class NormalBullet extends Bullet {
 	// 0 to attack enemy
 	// 1 to attack hero
 	protected int target;
-	protected int direction;
-	protected int vx;
+	
+	
 	protected Pair<Integer, Integer> startPosition;
 
 	public NormalBullet(int x, int y, int target, int direction) {
@@ -42,26 +42,7 @@ public class NormalBullet extends Bullet {
 		checkCollide();
 	}
 
-	@Override
-	public void setVx(int vx) {
-		return;
-	}
-
-	@Override
-	public void setVy(int vy) {
-		return;
-	}
-
-	@Override
-	public int getVx() {
-		return vx;
-	}
-
-	@Override
-	public int getVy() {
-		return 0;
-	}
-
+	
 	@Override
 	public void checkCollide() {
 		for (Entity e : GameMap.getEntityObjects()) {
@@ -85,14 +66,8 @@ public class NormalBullet extends Bullet {
 		((Attackable) other).decreaseHp(2);
 	}
 
-	@Override
-	public int getDirection() {
-		return direction;
-	}
+	
 
-	public void dead() {
-		GameMap.getEntityObjects().remove(this);
-		GameMap.getRenderObjects().remove(this);
-	}
+	
 
 }

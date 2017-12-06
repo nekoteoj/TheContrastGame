@@ -16,7 +16,7 @@ import model.Entity;
 import model.GameBackground;
 import model.NormalHero;
 import model.Renderable;
-import model.Soilder;
+import model.Soldier;
 import model.map.Floor;
 import model.map.MapObject;
 import model.map.TestFloor;
@@ -37,7 +37,7 @@ public class GameMap {
 		entityObjects.clear();
 		renderObjects.add(new GameBackground());
 		renderObjects.add(new NormalHero(0, 0));
-		renderObjects.add(new Soilder(400, 0));
+		renderObjects.add(new Soldier(400, 0));
 		entityObjects.add((Entity) renderObjects.get(1));
 		entityObjects.add((Entity) renderObjects.get(2));
 		/*entityObjects.add(new TestFloor(0, 475, 800, 125));

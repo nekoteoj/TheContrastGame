@@ -9,7 +9,7 @@ import logic.GameMap;
 import model.utility.ClassResourceUtility;
 import view.GameCanvas;
 
-public class Soilder extends Enemy {
+public class Soldier extends Enemy {
 
 	protected static List<Image> imageFrame;
 	
@@ -18,14 +18,14 @@ public class Soilder extends Enemy {
 		imageFrame.add(new Image(ClassResourceUtility.getResourcePath("img/hero.png"), 70, 99, true, true));
 	}
 
-	protected int vx;
-	protected int vy;
-	protected boolean onAir;
-	// 1 right 0 left
-	protected int direction;
-	protected int hp;
 	
-	public Soilder(int x, int y) {
+	
+	
+	 
+	
+	
+	
+	public Soldier(int x, int y) {
 		super(x, y, 70 - 25, 99);
 		vx = 0;
 		vy = 0;
@@ -34,11 +34,7 @@ public class Soilder extends Enemy {
 		hp = 5;
 	}
 	
-	@Override
-	public boolean isOnAir() {
-		// TODO Auto-generated method stub
-		return onAir;
-	}
+
 	
 	@Override
 	public void draw(GraphicsContext gc) {
@@ -47,55 +43,11 @@ public class Soilder extends Enemy {
 		gc.strokeRect(position.first - GameCanvas.getCurrentInstance().getStartX(), position.second, width, height);
 	}
 	
-	@Override
-	public void moveDownGravity() {
-		if (isOnAir()) {
-				vy += 3;
-		}
-	}
-
-	@Override
-	public void move() {
-		// TODO Auto-generated method stub
-		if (vx == 0 && vy == 0) {
-			return;
-		}
-		if (vx != 0) {
-			direction = vx > 0 ? 1 : 0;
-		}
-		position.second += vy;
-		position.first += vx;
-		if (position.second < 0) {
-			position.second = 0;
-			vy = 0;
-		}
-		if (position.first < 0) {
-			position.first = 0;
-			vx = 0;
-		}
-		checkCollide();
-	}
-
-	public int getVx() {
-		return vx;
-	}
-
-	public void setVx(int vx) {
-		this.vx = vx;
-	}
-
-	public int getVy() {
-		return vy;
-	}
-
-	public void setVy(int vy) {
-		this.vy = vy;
-	}
 	
-	@Override
-	public void setOnAir(boolean onAir) {
-		this.onAir = onAir;
-	}
+
+	
+		
+
 
 	@Override
 	public void checkCollide() {
@@ -139,20 +91,11 @@ public class Soilder extends Enemy {
 		}
 	}
 	
-	@Override
-	public int getDirection() {
-		return direction;
-	}
+	
 
-	@Override
-	public int getHp() {
-		return hp;
-	}
+	
 
-	@Override
-	public void setHp(int amount) {
-		hp = amount;
-	}
+
 
 	@Override
 	public void decreaseHp(int amount) {
@@ -162,10 +105,5 @@ public class Soilder extends Enemy {
 			dead();
 		}
 	}
-
-	@Override
-	public void dead() {
-		GameMap.getEntityObjects().remove(this);
-		GameMap.getRenderObjects().remove(this);
-	}
+	
 }
