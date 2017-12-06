@@ -23,7 +23,7 @@ public class Soldier extends Enemy {
 	protected boolean onAir;
 	// 1 right 0 left
 	protected int direction;
-	protected int hp;
+	
 	
 	public Soldier(int x, int y) {
 		super(x, y, 70 - 25, 99);
@@ -144,15 +144,8 @@ public class Soldier extends Enemy {
 		return direction;
 	}
 
-	@Override
-	public int getHp() {
-		return hp;
-	}
+	
 
-	@Override
-	public void setHp(int amount) {
-		hp = amount;
-	}
 
 	@Override
 	public void decreaseHp(int amount) {
@@ -163,9 +156,5 @@ public class Soldier extends Enemy {
 		}
 	}
 
-	@Override
-	public void dead() {
-		GameMap.getEntityObjects().remove(this);
-		GameMap.getRenderObjects().remove(this);
-	}
+	
 }
