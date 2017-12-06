@@ -115,15 +115,17 @@ public class Menu {
 				fileChooser.setTitle("Open Map file");
 				fileChooser.getExtensionFilters().addAll(new ExtensionFilter("Map Files", "*.dat", "*.txt"));
 				File selectedFile = fileChooser.showOpenDialog(ViewManager.getInstance().getPrimaryStage());
-				mainMenuPane.stopMainMenuLoop();
-				readySound.play();
-				try {
-					Thread.sleep(2000);
-				} catch (InterruptedException e) {
-					e.printStackTrace();
+				if (selectedFile != null) {
+					mainMenuPane.stopMainMenuLoop();
+					readySound.play();
+					try {
+						Thread.sleep(2000);
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
+					ViewManager.getInstance().goTo("game");
+					gamePane.startGameLoop(selectedFile.toURI());
 				}
-				ViewManager.getInstance().goTo("game");
-				gamePane.startGameLoop(selectedFile.toURI());
 			} else if (selected == 2) {
 				clickSound.play();
 				goToMainList();
