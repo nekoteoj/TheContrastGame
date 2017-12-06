@@ -21,7 +21,6 @@ public class NormalHero extends Hero {
 
 	
 	public static int DEFAULT_HP = 100;
-	protected int hp;
 	protected int vx;
 	protected int vy;
 	protected boolean onAir;
@@ -147,13 +146,13 @@ public class NormalHero extends Hero {
 		return direction;
 	}
 
-	@Override
+	
 	public int getHp() {
 		// TODO Auto-generated method stub
 		return hp;
 	}
 
-	@Override
+	
 	public void setHp(int amount) {
 		hp = amount;
 	}
