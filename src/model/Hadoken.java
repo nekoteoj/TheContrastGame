@@ -15,13 +15,14 @@ public final static int MP_USE = 100;
 		super(x, y, 10, 10);
 		this.target = target;
 		this.attackPoint = 50;
+		this.velocity = 15;
 				new AudioClip(ClassResourceUtility.getResourcePath("sound/hadouken.wav")).play();
 		startPosition = Pair.makePair(x, y);
 		this.direction = direction;
 		if (direction == 1) {
-			vx = 15;
+			vx = velocity;
 		} else if (direction == 0) {
-			vx = -15;
+			vx = -velocity;
 		}
 	}
 
