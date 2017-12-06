@@ -47,8 +47,8 @@ public abstract class Hero extends MovableEntity implements  Renderable, Attacka
 		return mp;
 	}
 
-	public void setMp(int mp) {
-		this.mp = mp;
+	public void setMp(double d) {
+		this.mp = d;
 	}
 	
 	@Override
@@ -93,6 +93,9 @@ public abstract class Hero extends MovableEntity implements  Renderable, Attacka
 		} else if ((type == 2) && (this.mp >= 10.0)) {
 			bullet = new CriticalBullet(this.position.first + this.width, this.position.second + this.height / 2, 0, this.direction);
 			this.decreaseMp(10.0);
+		} else if ((type == 3) && (isMpFull())) {
+			bullet = new Hadoken(this.position.first + this.width, this.position.second + this.height / 2, 0, this.direction);
+			this.setMp(0.0);
 		} else {
 			return null;
 		}

@@ -55,6 +55,11 @@ public class GameCanvasController {
 							.findAny().get();
 					hero.fire(2);
 				}
+				if (code == KeyCode.C) {
+					Hero hero = GameMap.getRenderObjects().parallelStream().filter(x -> x instanceof Hero).map(x -> (Hero) x)
+							.findAny().get();
+					hero.fire(3);
+				}
 				pressedKey.add(code);
 			}
 		});

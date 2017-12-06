@@ -20,13 +20,14 @@ public class NormalBullet extends Bullet {
 		super(x, y, 4, 4);
 		this.target = target;
 		this.attackPoint = 2;
+		this.velocity = 15;
 		new AudioClip(ClassResourceUtility.getResourcePath("sound/shot_1.wav")).play();
 		startPosition = Pair.makePair(x, y);
 		this.direction = direction;
 		if (direction == 1) {
-			vx = 15;
+			vx = velocity;
 		} else if (direction == 0) {
-			vx = -15;
+			vx = -velocity;
 		}
 	}
 
