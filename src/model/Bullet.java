@@ -39,9 +39,11 @@ public abstract class Bullet extends MovableEntity implements Renderable{
 				if (target == 0 && e instanceof Enemy) {
 					fixCollide(e);
 					dead();
+					break;
 				} else if (target == 1 && e instanceof Hero) {
 					fixCollide(e);
 					dead();
+					break;
 				}
 			}
 		}
