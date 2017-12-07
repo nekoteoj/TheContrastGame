@@ -3,6 +3,7 @@ package model;
 
 
 import logic.GameMap;
+import model.map.MapObject;
 import model.utility.Pair;
 
 public abstract class Bullet extends MovableEntity implements Renderable{
@@ -28,6 +29,10 @@ public abstract class Bullet extends MovableEntity implements Renderable{
 		if (Math.abs(position.first - startPosition.first) >= 900) {
 			dead();
 		}
+		position.second += vy;
+		if (Math.abs(position.second - startPosition.second) >= 600) {
+			dead();
+		}
 		checkCollide();
 	}
 
@@ -44,10 +49,14 @@ public abstract class Bullet extends MovableEntity implements Renderable{
 					fixCollide(e);
 					dead();
 					break;
+				} else if (e instanceof MapObject){
+					dead();
+					break;
+				}
 				}
 			}
 		}
-	}
+	
 
 	@Override
 	public void fixCollide(Entity other) {
