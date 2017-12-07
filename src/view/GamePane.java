@@ -6,6 +6,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
 
 import exception.MapObjectNotFoundException;
 import javafx.scene.Group;
+import logic.BotManager;
 import logic.GameMap;
 import logic.HeroStatusDrawer;
 import logic.MoveManager;
@@ -23,11 +24,13 @@ public class GamePane extends Group {
 	private boolean isGameRunning;
 	private Runnable gameRun;
 	private HeroStatusDrawer heroStatusDrawer;
+	private BotManager botManager;
 
 	public GamePane() {
 		super();
 		gameCanvas = new GameCanvas();
 		gameMap = new GameMap();
+		botManager = new BotManager();
 		getChildren().add(gameCanvas);
 		isGameRunning = false;
 		heroStatusDrawer = new HeroStatusDrawer();
@@ -68,6 +71,7 @@ public class GamePane extends Group {
 		}
 		});
 		heroStatusDrawer.draw(gameCanvas.getGraphicsContext2D());
+		botManager.handleCall();
 	}
 	
 	public void startGameLoop(int map) {

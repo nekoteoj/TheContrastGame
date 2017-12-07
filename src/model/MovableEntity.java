@@ -66,6 +66,21 @@ public int getVx() {
 		return direction;
 	}
 
+public void halt() {
+	this.vx = 0;
+	
+}
+
+public void forward(int speed) {
+	if (this.direction == 1) {
+		this.vx = speed;
+	} else if (this.direction == 0) {
+	this.vx = -speed;	
+	}
+	}
+
+
+
 public abstract void checkCollide();
 public abstract void fixCollide(Entity other);
 
