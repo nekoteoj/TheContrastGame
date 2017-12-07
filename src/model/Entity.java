@@ -27,31 +27,7 @@ public abstract class Entity {
 		return height;
 	}
 	public boolean isCollide(Entity other) {
-		Pair<Integer, Integer> o = other.getPosition();
-		if (o.first >= position.first && o.first <= position.first + width &&
-				o.second >= position.second && o.second <= position.second + height) {
-			return true;
-		}
-		o = other.getPosition();
-		o = Pair.makePair(o.first + other.getWidth(), o.second);
-		if (o.first >= position.first && o.first <= position.first + width &&
-				o.second >= position.second && o.second <= position.second + height) {
-			return true;
-		}
-		o = other.getPosition();
-		o = Pair.makePair(o.first, o.second + other.getHeight());
-		//System.out.println(o.first + ", " + (o.second + other.getHeight()) + " | " + (position.first + width) + ", " + position.second);
-		if (o.first >= position.first && o.first <= position.first + width &&
-				o.second >= position.second && o.second <= position.second + height) {
-				//System.out.println("This should be true");
-			return true;
-		}
-		o = other.getPosition();
-		o = Pair.makePair(o.first + other.getWidth(), o.second + other.getHeight());
-		if (o.first >= position.first && o.first <= position.first + width &&
-				o.second >= position.second && o.second <= position.second + height) {
-			return true;
-		}
-		return false;
+		return position.first < other.position.first + other.width && position.first + width > other.position.first &&
+		     position.second < other.position.second + other.height && position.second + height > other.position.second;
 	}
 }

@@ -5,73 +5,83 @@ import java.util.List;
 
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
+import javafx.scene.media.AudioClip;
+import javafx.scene.paint.Color;
 import logic.GameMap;
+import main.App;
 import model.utility.ClassResourceUtility;
 import view.GameCanvas;
 
 public class BuffHero extends Hero {
 
 protected static List<Image> imageFrame;
+
+	private static AudioClip buffSound;
 	
 	static {
 		imageFrame = new ArrayList<>();
-		//TODO change image!
-		imageFrame.add(new Image(ClassResourceUtility.getResourcePath("img/hero.png"), 70, 99, true, true));
+		imageFrame.add(new Image(ClassResourceUtility.getResourcePath("img/model/BuffHero/1R.png"), 64, 81, true, false));
+		imageFrame.add(new Image(ClassResourceUtility.getResourcePath("img/model/BuffHero/2R.png"), 64, 81, true, false));
+		imageFrame.add(new Image(ClassResourceUtility.getResourcePath("img/model/BuffHero/1L.png"), 64, 81, true, false));
+		imageFrame.add(new Image(ClassResourceUtility.getResourcePath("img/model/BuffHero/2L.png"), 64, 81, true, false));
+		buffSound = new AudioClip(ClassResourceUtility.getResourcePath("sound/buffsound.mp3"));
 	}
 
 	
 	public static int DEFAULT_HP = 100;
 	
+	private int walkState;
+	private int effectTick;
+	
 	public BuffHero(int x, int y, int vx, int vy, int direction) {
-		super(x, y, 70 - 25, 99);
+		super(x, y, 64, 81);
 		this.vx = vx;
 		this.vy = vy;
 		onAir = true;
 		this.direction = direction;
 		hp = 100;
+		walkState = (direction == 1 ? 0 : 2);
+		buffSound.play();
+		effectTick = 0;
 	}
 	
 	@Override
 	public void draw(GraphicsContext gc) {
-		gc.drawImage(imageFrame.get(0), position.first - GameCanvas.getCurrentInstance().getStartX(), position.second);
+		if (effectTick < 15) {
+			effectTick++;
+			gc.setFill(Color.rgb(255, 255, 0, effectTick / 15.0 * 0.4 + 0.6));
+			gc.fillRect(position.first - 10 - GameCanvas.getCurrentInstance().getStartX(), 0, width + 20, App.SCREEN_HEIGHT);
+		}
+		gc.drawImage(imageFrame.get(walkState), position.first - GameCanvas.getCurrentInstance().getStartX(), position.second);
 		gc.setLineWidth(3);
 		gc.strokeRect(position.first - GameCanvas.getCurrentInstance().getStartX(), position.second, width, height);
 	}
 	
 	@Override
-	public void checkCollide() {
-		List<Entity> l = GameMap.getEntityObjects();
-		boolean collideWithFloor = false;
-		for (Entity o : l) {
-			if (this != o && o.isCollide(this)) {
-				fixCollide(o);
-				if (vy > 0) {
-					collideWithFloor = true;
+	public void move() {
+		super.move();
+		if (direction == 1) {
+			if (vy != 0) {
+				walkState = 1;
+			} else if (vx == 0) {
+				walkState = 0;
+			} else {
+				walkState++;
+				walkState %= 2;
+			}
+		} else {
+			if (direction == 0) {
+				if (vy != 0) {
+					walkState = 3;
+				} else if (vx == 0) {
+					walkState = 2;
+				} else {
+					walkState = walkState == 2 ? 3 : 2;
 				}
 			}
 		}
-		setOnAir(collideWithFloor == false);
 	}
-
-	@Override
-	public void fixCollide(Entity other) {
-		
-		if (!onAir && vx > 0 && position.first + width >= other.getPosition().first) {
-			vx = 0;
-			position.first = other.getPosition().first - getWidth() - 2;
-		} else if (!onAir && vx < 0 && position.first <= other.getPosition().first + other.width) {
-			vx = 0;
-			position.first = other.getPosition().first + other.getWidth() + 2;
-		}
-		if (isOnAir() && position.second + height <= other.getPosition().second + other.getHeight()) {
-			vy = 0;
-			position.second = other.getPosition().second - height;
-		} else if (isOnAir() && vy < 0 && position.second <= other.getPosition().second + other.getHeight()) {
-			vy = 0;
-			position.second = other.getPosition().second + other.getHeight();
-		}
-	}
-
+	
 	@Override
 	public void increaseMp(double amount) {
 		 this.setMp(100.0);

@@ -12,6 +12,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.stream.Stream;
 
 import exception.MapObjectNotFoundException;
+import javafx.scene.media.AudioClip;
 import model.Entity;
 import model.GameBackground;
 import model.NormalHero;
@@ -28,6 +29,12 @@ public class GameMap {
 	private static List<Renderable> renderObjects = new CopyOnWriteArrayList<>();
 	private static List<Entity> entityObjects = new CopyOnWriteArrayList<>();
 	
+	private static final AudioClip backgroundMusic;
+	
+	static {
+		backgroundMusic = new AudioClip(ClassResourceUtility.getResourcePath("sound/gamebackgroundsound.mp3")); 	
+	}	
+
 	private static int mapLength = 0;
 	
 	public GameMap() {
@@ -35,30 +42,21 @@ public class GameMap {
 	}
 	
 	public void initialize() {
-		renderObjects.clear();
-		entityObjects.clear();
+		clearEntity();
 		renderObjects.add(new GameBackground());
-//		renderObjects.add(new NormalHero(0, 0));
-//		renderObjects.add(new Soldier(400, 0));
-//		entityObjects.add((Entity) renderObjects.get(1));
-//		entityObjects.add((Entity) renderObjects.get(2));
-		/*entityObjects.add(new TestFloor(0, 475, 800, 125));
-		entityObjects.add(new TestFloor(0, 425, 200, 50));
-		renderObjects.add((Renderable) entityObjects.get(1));
-		renderObjects.add((Renderable) entityObjects.get(2));
-		entityObjects.add(new TestFloor(200, 200, 100, 20));
-		renderObjects.add((Renderable) entityObjects.get(3));*/
 		GravityManager.startGravity(renderObjects);
 		MoveManager.startMove(renderObjects);
 		mapLength = 0;
+		backgroundMusic.setCycleCount(AudioClip.INDEFINITE);
+		backgroundMusic.play();
 	}
 	
 	public void stop() {
-		renderObjects.clear();
-		entityObjects.clear();
+		clearEntity();
 		GravityManager.stopGravity();
 		MoveManager.stopMove();
 		mapLength = 0;
+		backgroundMusic.stop();
 	}
 
 	public static List<Renderable> getRenderObjects() {
@@ -125,6 +123,13 @@ public class GameMap {
 		entityObjects.add(e);
 		if (e instanceof Renderable) {
 			renderObjects.add((Renderable) e);
+		}
+	}
+	
+	public static void removeEntity(Entity e) {
+		entityObjects.remove(e);
+		if (e instanceof Renderable) {
+			renderObjects.remove((Renderable) e);
 		}
 	}
 	
