@@ -14,7 +14,7 @@ public class Tank extends Enemy {
 		vx = 0;
 		vy = 0;
 		onAir = false;
-		direction = findDirectionOfHero();
+		this.findDirectionOfHero();
 		hp = 50;
 	}
 	
