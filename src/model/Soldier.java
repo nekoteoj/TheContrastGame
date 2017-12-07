@@ -67,29 +67,7 @@ public class Soldier extends Enemy {
 		}
 	}
 
-	@Override
-	public void checkCollide() {
-		List<Entity> l = GameMap.getEntityObjects();
-		setOnAir(true);
-		for (Entity o : l) {
-			if (this != o && o.isCollide(this) && o instanceof MapObject) {
-				fixCollide(o);
-			}
-		}
-	}
-	
-	@Override
-	public void fixCollide(Entity other) {
-			if (other instanceof MapObject) {
-				if (position.second + height - vy <= other.position.second + 5 && vy >= 0) {
-					vy = 0;
-					position.second = other.position.second - height;
-					setOnAir(false);
-				}
-			}
-		}
-
-	public Bullet fire() {
+		public Bullet fire() {
 		Bullet bullet = new NormalBullet(this.position.first + this.width, this.position.second + this.height / 2, 1, this.direction);
 GameMap.addEntity(bullet);
 return bullet;
