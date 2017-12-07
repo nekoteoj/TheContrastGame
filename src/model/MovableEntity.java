@@ -1,5 +1,7 @@
 package model;
 
+import logic.GameMap;
+
 public abstract class MovableEntity extends Entity  implements Movable{
 	protected int vx;
 	protected int vy;
@@ -31,6 +33,10 @@ public abstract class MovableEntity extends Entity  implements Movable{
 		}
 		if (position.first < 0) {
 			position.first = 0;
+			vx = 0;
+		}
+		if (position.first + getWidth() > GameMap.getMapLength()) {
+			position.first = GameMap.getMapLength() - getWidth();
 			vx = 0;
 		}
 		checkCollide();
