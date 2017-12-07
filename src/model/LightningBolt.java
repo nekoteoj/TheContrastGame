@@ -4,8 +4,9 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.media.AudioClip;
 import logic.GameMap;
 import model.utility.ClassResourceUtility;
+import view.GameCanvas;
 
-public class LightningBolt implements Renderable{
+public class LightningBolt extends Entity implements Renderable{
 
 	private static AudioClip lightningSound;
 	static {
@@ -13,6 +14,7 @@ public class LightningBolt implements Renderable{
 	}
 	
 	public LightningBolt(int damage) {
+		super(0,0,(int) GameCanvas.getCurrentInstance().getWidth(), (int) GameCanvas.getCurrentInstance().getHeight());
 	GameMap.getEntityObjects().parallelStream().filter(x -> x instanceof Hero).forEach(e -> ((Hero)e).decreaseHp(damage));	
 lightningSound.play();	
 	}
