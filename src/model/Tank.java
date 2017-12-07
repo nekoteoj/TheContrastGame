@@ -13,7 +13,7 @@ public class Tank extends Enemy {
 		super(x, y, 50, 100);
 		vx = 0;
 		vy = 0;
-		onAir = false;
+		onAir = true;
 		this.findDirectionOfHero();
 		hp = 50;
 	}
@@ -39,23 +39,5 @@ return bullet;
 	public void dead() {
 		 new AudioClip(ClassResourceUtility.getResourcePath("sound/tank_explode.wav")).play();
 		super.dead();
-	}
-
-	@Override
-	public void decreaseHp(int amount) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void checkCollide() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void fixCollide(Entity other) {
-		// TODO Auto-generated method stub
-		
 	}
 }
