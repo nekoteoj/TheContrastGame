@@ -28,6 +28,8 @@ public class GameMap {
 	private static List<Renderable> renderObjects = new CopyOnWriteArrayList<>();
 	private static List<Entity> entityObjects = new CopyOnWriteArrayList<>();
 	
+	private static int mapLength = 0;
+	
 	public GameMap() {
 		
 	}
@@ -48,6 +50,7 @@ public class GameMap {
 		renderObjects.add((Renderable) entityObjects.get(3));*/
 		GravityManager.startGravity(renderObjects);
 		MoveManager.startMove(renderObjects);
+		mapLength = 0;
 	}
 	
 	public void stop() {
@@ -55,6 +58,7 @@ public class GameMap {
 		entityObjects.clear();
 		GravityManager.stopGravity();
 		MoveManager.stopMove();
+		mapLength = 0;
 	}
 
 	public static List<Renderable> getRenderObjects() {
@@ -66,6 +70,7 @@ public class GameMap {
 	}
 	
 	public void loadMap(URI fileURI) throws MapObjectNotFoundException {
+		mapLength = 0;
 		try (Stream<String> stream = Files.lines(Paths.get(fileURI))) {
 			for (String line : (Iterable<String>) stream::iterator) {
 				
@@ -91,6 +96,9 @@ public class GameMap {
 					entityObjects.add(mo);
 					if (mo instanceof Renderable) {
 						renderObjects.add((Renderable) mo);
+					}
+					if (mo.getWidth() + mo.getPosition().first > mapLength) {
+						mapLength = mo.getWidth() + mo.getPosition().first;
 					}
 				} catch (MapObjectNotFoundException e) {
 					System.out.println("Load map error, Create map with nothing");
@@ -123,6 +131,10 @@ public class GameMap {
 	public static void clearEntity() {
 		renderObjects.clear();
 		entityObjects.clear();
+	}
+	
+	public static int getMapLength() {
+		return mapLength;
 	}
 	
 }

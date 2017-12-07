@@ -1,6 +1,7 @@
 package view;
 
 import javafx.scene.canvas.Canvas;
+import logic.GameMap;
 import main.App;
 import model.Hero;
 
@@ -47,6 +48,11 @@ public class GameCanvas extends Canvas {
 	
 	public void doTansition(Hero hero) {
 		startX = hero.getPosition().first - (App.SCREEN_WIDTH - transitionWidth);
+		if (startX > GameMap.getMapLength() - App.SCREEN_WIDTH) {
+			startX = GameMap.getMapLength() - App.SCREEN_WIDTH;
+			onTransition = false;
+			transitionWidth = 150;
+		}
 		transitionWidth += 15;
 		if (transitionWidth >= 2 * App.SCREEN_WIDTH / 3 + hero.getWidth()) {
 			onTransition = false;
