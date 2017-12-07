@@ -1,11 +1,15 @@
 package model;
 
+import java.util.List;
+
 import logic.GameMap;
+import model.map.MapObject;
 
 public abstract class Hero extends MovableEntity implements  Renderable, Attackable, GravityAffected, SpecialAbilityUser{
 
 	protected int hp;
 	protected double mp;
+	protected int jumpCount = 0;
 
 	public Hero(int x, int y, int width, int height) {
 		super(x, y, width, height);
@@ -85,6 +89,37 @@ public abstract class Hero extends MovableEntity implements  Renderable, Attacka
 		}
 	}
 	
+	@Override
+	public void checkCollide() {
+		List<Entity> l = GameMap.getEntityObjects();
+		setOnAir(true);
+		for (Entity o : l) {
+			if (this != o && o.isCollide(this) && o instanceof MapObject) {
+				fixCollide(o);
+			}
+		}
+	}
+	
+	public void jump() {
+		if (jumpCount < 2) {
+			jumpCount++;
+			setVy(-20);
+			setOnAir(true);
+		}
+	}
+	
+	@Override
+	public void fixCollide(Entity other) {
+			if (other instanceof MapObject) {
+				if (position.second + height - vy <= other.position.second + 5 && vy >= 0) {
+					vy = 0;
+					position.second = other.position.second - height;
+					setOnAir(false);
+					jumpCount = 0;
+				}
+			}
+		}
+	
 	public Bullet fire(int type) {
 		Bullet bullet; 
 		int fireXPosition = this.position.first + (direction == 1 ? this.width : 0);
@@ -95,7 +130,7 @@ public abstract class Hero extends MovableEntity implements  Renderable, Attacka
 			bullet = new CriticalBullet(fireXPosition, this.position.second + this.height / 2, 0, this.direction);
 			this.decreaseMp(10.0);
 		} else if ((type == 3) && (isMpFull())) {
-			bullet = new Hadoken(fireXPosition, this.position.second + this.height / 2, 0, this.direction);
+			bullet = new Hadoken(fireXPosition, this.position.second + this.height / 3, 0, this.direction);
 			this.setMp(0.0);
 		} else {
 			return null;
