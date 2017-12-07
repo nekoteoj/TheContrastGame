@@ -13,7 +13,7 @@ public class Boss extends Enemy{
 		vx = 0;
 		vy = 0;
 		onAir = true;
-		direction = findDirectionOfHero();
+		this.findDirectionOfHero();
 		hp = 200;
 	}
 	
