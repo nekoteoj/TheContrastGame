@@ -46,6 +46,7 @@ public class GameMap {
 		renderObjects.add(new GameBackground());
 		GravityManager.startGravity(renderObjects);
 		MoveManager.startMove(renderObjects);
+		BotManager.startBot();
 		mapLength = 0;
 		backgroundMusic.setCycleCount(AudioClip.INDEFINITE);
 		backgroundMusic.play();
@@ -55,6 +56,7 @@ public class GameMap {
 		clearEntity();
 		GravityManager.stopGravity();
 		MoveManager.stopMove();
+		BotManager.stopBot();
 		mapLength = 0;
 		backgroundMusic.stop();
 	}
