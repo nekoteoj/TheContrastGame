@@ -1,6 +1,9 @@
 package model;
 
+import java.util.List;
+
 import logic.GameMap;
+import model.map.MapObject;
 
 public abstract class Enemy extends MovableEntity implements Renderable, Attackable, GravityAffected{
 	protected int hp;
@@ -27,7 +30,31 @@ public abstract class Enemy extends MovableEntity implements Renderable, Attacka
 	public void setOnAir(boolean onAir) {
 		this.onAir = onAir;
 	}
-	
+
+@Override
+public void checkCollide() {
+	List<Entity> l = GameMap.getEntityObjects();
+	setOnAir(true);
+	for (Entity o : l) {
+		if (this != o && o.isCollide(this) && o instanceof MapObject) {
+			fixCollide(o);
+		}
+	}
+}
+
+@Override
+public void fixCollide(Entity other) {
+		if (other instanceof MapObject) {
+			if (position.second + height - vy <= other.position.second + 5 && vy >= 0) {
+				vy = 0;
+				position.second = other.position.second - height;
+				setOnAir(false);
+			}
+		}
+	}
+
+
+
 	public int getHp() {
 		return hp;
 	}
