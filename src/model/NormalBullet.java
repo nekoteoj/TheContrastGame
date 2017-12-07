@@ -22,6 +22,7 @@ public class NormalBullet extends Bullet {
 		imageFrame.add(new Image(ClassResourceUtility.getResourcePath("img/model/NormalBullet/1R.png"), 20, 6, true, true));
 		imageFrame.add(new Image(ClassResourceUtility.getResourcePath("img/model/NormalBullet/1L.png"), 20, 6, true, true));
 		bulletSound = new AudioClip(ClassResourceUtility.getResourcePath("sound/shot_1.wav"));
+		bulletSound.setVolume(0.5);
 	}
 	
 	public final static int MP_USE = 0;
