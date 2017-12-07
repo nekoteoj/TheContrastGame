@@ -1,67 +1,43 @@
 package view;
 
 import java.net.URI;
-import java.util.List;
-import java.util.concurrent.CopyOnWriteArrayList;
-
 import exception.MapObjectNotFoundException;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.scene.Group;
-import logic.BotManager;
+import javafx.util.Duration;
 import logic.GameMap;
 import logic.HeroStatusDrawer;
-import logic.MoveManager;
-import main.App;
-import model.Entity;
-import model.GameBackground;
-import model.Renderable;
 import model.SpecialAbilityUser;
 
 public class GamePane extends Group {
 	
 	private GameCanvas gameCanvas;
 	private GameMap gameMap;
-	private Thread gameLoop;
-	private boolean isGameRunning;
-	private Runnable gameRun;
+	private Timeline gameLoop;
+	private KeyFrame gameKeyFrame;
 	private HeroStatusDrawer heroStatusDrawer;
-	private BotManager botManager;
 
 	public GamePane() {
 		super();
 		gameCanvas = new GameCanvas();
 		gameMap = new GameMap();
-		botManager = new BotManager();
 		getChildren().add(gameCanvas);
-		isGameRunning = false;
 		heroStatusDrawer = new HeroStatusDrawer();
 		
-		gameRun = () ->  {
-			for (;isGameRunning ;) {
+		gameKeyFrame = new KeyFrame(Duration.millis(17), new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent ac) {
 				gameLoopCallback();
-				try {
-					Thread.sleep(17);
-				} catch (Exception except) {
-					System.out.println("Sleep Thread Fault!!!");
-					except.printStackTrace();
-				}
 			}
-		};
+		});
 		
 	}
 	
 	private void gameLoopCallback() {
-		GameMap.getRenderObjects()//.stream()
-//			.filter(x -> {
-//				if (x instanceof Entity) {
-//					Entity e = (Entity) x;
-//					if (gameCanvas.getStartX() <= e.getPosition().first && e.getPosition().first <= gameCanvas.getStartX() + App.SCREEN_WIDTH ||
-//							gameCanvas.getStartX() <= e.getPosition().first + e.getWidth() && e.getPosition().first + e.getWidth() <= gameCanvas.getStartX() + App.SCREEN_WIDTH) {
-//						return true;
-//					}
-//					return false;
-//				}
-//				return true;
-//			})
+		GameMap.getRenderObjects()
 			.forEach(e -> {
 			e.draw(gameCanvas.getGraphicsContext2D());
 		});
@@ -71,28 +47,29 @@ public class GamePane extends Group {
 		}
 		});
 		heroStatusDrawer.draw(gameCanvas.getGraphicsContext2D());
-		botManager.handleCall();
 	}
 	
 	public void startGameLoop(int map) {
-		isGameRunning = true;
-		gameLoop = new Thread(gameRun);
-		gameLoop.start();
+		gameLoop = new Timeline();
+		gameLoop.setCycleCount(Timeline.INDEFINITE);
+		gameLoop.getKeyFrames().add(gameKeyFrame);
+		gameLoop.play();
 		gameMap.initialize();
 		gameMap.loadMap(map);
 	}
 	
 	public void startGameLoop(URI uri) throws MapObjectNotFoundException {
-		isGameRunning = true;
-		gameLoop = new Thread(gameRun);
-		gameLoop.start();
+		gameLoop = new Timeline();
+		gameLoop.setCycleCount(Timeline.INDEFINITE);
+		gameLoop.getKeyFrames().add(gameKeyFrame);
+		gameLoop.play();
 		gameMap.initialize();
 		gameMap.loadMap(uri);
 	}
 	
 	public void stopGameLoop() {
 		gameMap.stop();
-		isGameRunning = false;
+		gameLoop.stop();
 	}
 	
 	public GameCanvas getGameCanvas() {
