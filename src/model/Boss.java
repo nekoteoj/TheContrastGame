@@ -40,23 +40,21 @@ return bullet;
 		super.dead();
 	}
 
-
-
-	
-	@Override
-	public void checkCollide() {
-		// TODO Auto-generated method stub
-		
+	public Bullet fireMeteor(int x, int y) {
+		Bullet bullet = new MeteorStrike(x, y, 1);
+GameMap.addEntity(bullet);
+return bullet;
 	}
 
-
-
-	@Override
-	public void fixCollide(Entity other) {
-		// TODO Auto-generated method stub
-		
+public Bullet fireMeteorArc(int x, int y) {
+		Bullet bullet = new MeteorArc(x, y, 1);
+GameMap.addEntity(bullet);
+return bullet;
 	}
-	
-	
-	
+
+public Entity fireLightning() {
+		Entity lightning = new LightningBolt(5);
+GameMap.addEntity(lightning);
+return lightning;
+	}
 }
