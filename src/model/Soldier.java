@@ -24,6 +24,7 @@ public class Soldier extends Enemy {
 	}
   
 	private int walkState;
+	private int walkTick = 0;
 	
 	public Soldier(int x, int y) {
 		super(x, y, 50, 77);
@@ -38,8 +39,8 @@ public class Soldier extends Enemy {
 	@Override
 	public void draw(GraphicsContext gc) {
 		gc.drawImage(imageFrame.get(walkState), position.first - GameCanvas.getCurrentInstance().getStartX(), position.second);
-		gc.setLineWidth(3);
-		gc.strokeRect(position.first - GameCanvas.getCurrentInstance().getStartX(), position.second, width, height);
+//		gc.setLineWidth(3);
+//		gc.strokeRect(position.first - GameCanvas.getCurrentInstance().getStartX(), position.second, width, height);
 	}
 	
 	@Override
@@ -51,8 +52,13 @@ public class Soldier extends Enemy {
 			} else if (vx == 0) {
 				walkState = 0;
 			} else {
-				walkState++;
-				walkState %= 2;
+				if (walkTick > 2) {
+					walkState++;
+					walkState %= 2;
+					walkTick = 0;
+				} else {
+					walkTick++;
+				}
 			}
 		} else {
 			if (direction == 0) {
@@ -61,7 +67,12 @@ public class Soldier extends Enemy {
 				} else if (vx == 0) {
 					walkState = 2;
 				} else {
-					walkState = walkState == 2 ? 3 : 2;
+					if (walkTick > 2) {
+						walkState = walkState == 2 ? 3 : 2;
+						walkTick = 0;
+					} else {
+						walkTick++;
+					}
 				}
 			}
 		}

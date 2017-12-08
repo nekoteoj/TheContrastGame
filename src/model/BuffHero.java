@@ -65,8 +65,8 @@ protected static List<Image> imageFrame;
 			gc.fillRect(position.first - 10 - GameCanvas.getCurrentInstance().getStartX(), 0, width + 20, App.SCREEN_HEIGHT);
 		}
 		gc.drawImage(imageFrame.get(walkState), position.first - GameCanvas.getCurrentInstance().getStartX(), position.second);
-		gc.setLineWidth(3);
-		gc.strokeRect(position.first - GameCanvas.getCurrentInstance().getStartX(), position.second, width, height);
+//		gc.setLineWidth(3);
+//		gc.strokeRect(position.first - GameCanvas.getCurrentInstance().getStartX(), position.second, width, height);
 	}
 	
 	@Override
