@@ -1,7 +1,9 @@
 package model;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
@@ -14,7 +16,7 @@ import view.GameCanvas;
 
 public class Hadoken extends Bullet {
 public final static int MP_USE = 100;
-	
+private Set<Entity> alreadyCollide;
 	private static AudioClip bulletSound;
 	private static List<Image> imageFrame;
 	
@@ -30,6 +32,7 @@ public final static int MP_USE = 100;
 		this.target = target;
 		this.attackPoint = 50;
 		this.velocity = 15;
+		this.alreadyCollide = new HashSet<>();
 		bulletSound.play();
 		startPosition = Pair.makePair(x, y);
 		this.direction = direction;
@@ -40,6 +43,18 @@ public final static int MP_USE = 100;
 		}
 	}
 
+	public void addToCollide(Entity e) {
+		this.alreadyCollide.add(e);
+	}
+	
+	public void removeToCollide(Entity e) {
+	this.alreadyCollide.remove(e);	
+	}
+	
+	public boolean isAlreadyCollide(Entity e) {
+	return this.alreadyCollide.contains(e);	
+	}
+	
 	@Override
 	public void draw(GraphicsContext gc) {
 //		gc.setFill(Color.YELLOW);
@@ -62,13 +77,26 @@ public final static int MP_USE = 100;
 		for (Entity e : GameMap.getEntityObjects()) {
 			if (this != e && e.isCollide(this)) {
 				if (target == 0 && e instanceof Enemy) {
+					if (!(this.isAlreadyCollide(e))) {
 					fixCollide(e);
+					this.addToCollide(e);
+					} else {
+						continue;
+					}
 				} else if (target == 1 && e instanceof Hero) {
+					if (!(this.isAlreadyCollide(e))) {
 					fixCollide(e);
+					this.addToCollide(e);
+					} else {
+						continue;
+					}
+				}
+				} else if (this != e && !(e.isCollide(this)) && this.isAlreadyCollide(e)){
+					this.removeToCollide(e);
 				}
 			}
 		}
-	}
+	
 
 	@Override
 	public void fixCollide(Entity other) {
