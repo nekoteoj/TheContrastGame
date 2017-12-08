@@ -8,6 +8,7 @@ import model.Bullet;
 import model.Enemy;
 import model.Entity;
 import model.Hero;
+import model.Item;
 import model.Soldier;
 import model.Tank;
 import view.GameCanvas;
@@ -46,6 +47,9 @@ this.isEnemyRemaining = false;
 		for (Entity e : l) {
 			if (!(isEnemyRemaining) && (e instanceof Enemy) && !(e instanceof Boss)) {
 				this.isEnemyRemaining = true;
+			}
+			if (e instanceof Item) {
+				((Item) e).decreaseTimeToLive(1);
 			}
 			if (this.isInsideScreen(e)) {
 				if (e instanceof Soldier) {
