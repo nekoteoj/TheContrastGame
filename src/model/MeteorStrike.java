@@ -13,20 +13,29 @@ import model.utility.ClassResourceUtility;
 import model.utility.Pair;
 import view.GameCanvas;
 
-public class MeteorStrike extends Bullet {
+public class MeteorStrike extends Bullet implements GravityAffected {
 
 	private static AudioClip fallingSound;
 	private static AudioClip impactSound;
 	private static List<Image> imageFrame;
 	
+	private static final int METEORWIDTH = 100;
+	private static final int METEORHEIGHT = 100;
+	
 	static {
 		imageFrame = new ArrayList<>();
+		imageFrame.add(new Image(ClassResourceUtility.getResourcePath("img/model/MeteorStrike/1.png"), METEORWIDTH, METEORHEIGHT, true, false));
+		imageFrame.add(new Image(ClassResourceUtility.getResourcePath("img/model/MeteorStrike/2.png"), METEORWIDTH, METEORHEIGHT, true, false));
 		fallingSound = new AudioClip(ClassResourceUtility.getResourcePath("sound/falling_meteor.wav"));
 		impactSound = new AudioClip(ClassResourceUtility.getResourcePath("sound/impact_meteor.wav"));
 	}
-protected int meteorWidth = 100;
-protected int meteorHeight = 100;
+
+protected int meteorWidth = METEORWIDTH;
+protected int meteorHeight = METEORHEIGHT;
 protected int centerX;
+
+private int frameTick = 0;
+private int frameState = 0;
 	
 public MeteorStrike(int x, int y, int target) {
 	super(0, 0, 1,1);
@@ -39,7 +48,7 @@ this.height = this.meteorHeight;
 		this.position.first = meteorX;
 		this.target = target;
 		this.attackPoint = 15;
-		this.vy = 3;
+		this.vy = 0;
 		startPosition = Pair.makePair(meteorX, 0);
 		fallingSound.play();
 	}
@@ -47,7 +56,13 @@ this.height = this.meteorHeight;
 	@Override
 	public void draw(GraphicsContext gc) {
 gc.setFill(Color.RED);
-		gc.fillOval(position.first - GameCanvas.getCurrentInstance().getStartX(), position.second, width, height);
+		gc.strokeRect(position.first - GameCanvas.getCurrentInstance().getStartX(), position.second, width, height);
+		if (frameTick > 30) {
+			frameTick = 0;
+			frameState = (frameState + 1) % 2;
+		}
+		gc.drawImage(imageFrame.get(frameState), position.first - GameCanvas.getCurrentInstance().getStartX(), position.second);
+		frameTick++;
 }
 
 	@Override
@@ -77,4 +92,21 @@ impactSound.play();
 		GameMap.getEntityObjects().remove(this);
 		GameMap.getRenderObjects().remove(this);
 	}
+
+@Override
+public boolean isOnAir() {
+	return true;
+}
+
+@Override
+public void setOnAir(boolean onAir) {
+	return;
+}
+
+@Override
+public void moveDownGravity() {
+	if (isOnAir() && vy < 3) {
+			vy += 1;
+	}
+}
 }
