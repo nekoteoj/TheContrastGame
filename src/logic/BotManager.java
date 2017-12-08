@@ -22,11 +22,13 @@ public class BotManager {
 	private int mapLength;
 	private boolean isEnemyRemaining;
 	private int internalTick;
+	private int lastMeteorTick;
 	private boolean isBoss;
 	
 
 	public BotManager() {
 		this.internalTick = 0;
+		this.lastMeteorTick = 0;
 		this.mapLength = GameMap.getMapLength() > 0? GameMap.getMapLength(): 1600;
 		this.isFirstInitialize = true;
 		this.isBoss = false;
@@ -98,9 +100,15 @@ if (!(this.isBoss) && !(this.isEnemyRemaining)) {
 //		System.out.println("Boss HP:" + boss.getHp());
 if (boss.getHp()		 > Boss.DEFAULT_HP/2) {
 	if (x >= 194) {
-	boss.fireMeteor(hero.getPosition().first, 0);	
-	} else if (x >= 192){
-	boss.fireLightning(3);
+		if (this.internalTick - this.lastMeteorTick > 20) {
+	boss.fireMeteor(hero.getPosition().first, 0);
+	this.lastMeteorTick = this.internalTick;
+		} else {
+		return;	
+		}
+	} else if (x >= 185){
+		boss.findDirectionOfHero(hero);
+	boss.fire();
 	} else {
 	boss.findDirectionOfHero(hero);	
 	}
