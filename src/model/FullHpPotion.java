@@ -24,10 +24,10 @@ static {
 	}
 
 	@Override
-	public void use() {
-		 this.getHero().increaseHp(100);
+	public void use(Hero hero) {
+		 hero.increaseHp(100);
 		 soundPotion.play();
-		super.use();
+		super.use(hero);
 	}
 	
 	

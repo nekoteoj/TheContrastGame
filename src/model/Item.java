@@ -14,7 +14,7 @@ public abstract class Item extends Entity implements Renderable {
 		return (Hero) GameMap.getEntityObjects().parallelStream().filter(x -> x instanceof Hero).findAny().get();
 	}
 
-	public void use() {
+	public void use(Hero hero) {
 	this.dead();
 	}
 	

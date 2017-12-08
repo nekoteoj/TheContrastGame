@@ -24,10 +24,10 @@ public class HalfHpPotion extends Item {
 		}
 
 		@Override
-		public void use() {
-			 this.getHero().increaseHp(50);
+		public void use(Hero hero) {
+			 hero.increaseHp(50);
 			 soundPotion.play();
-			super.use();
+			super.use(hero);
 		}
 		
 		

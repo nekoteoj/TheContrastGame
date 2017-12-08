@@ -125,6 +125,8 @@ public abstract class Hero extends MovableEntity implements  Renderable, Attacka
 					setOnAir(false);
 					jumpCount = 0;
 				}
+			} else if (other instanceof Item) {
+			((Item) other).use(this);	
 			}
 		}
 	

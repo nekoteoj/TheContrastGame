@@ -24,10 +24,10 @@ public class HalfMpPotion extends Item {
 		}
 
 		@Override
-		public void use() {
-			 this.getHero().increaseMp(50);
+		public void use(Hero hero) {
+			 hero.increaseMp(50);
 			 soundPotion.play();
-			super.use();
+			super.use(hero);
 		}
 		
 		
