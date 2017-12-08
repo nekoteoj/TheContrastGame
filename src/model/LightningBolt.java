@@ -34,10 +34,10 @@ lightningSound.play();
 
 	@Override
 	public void draw(GraphicsContext gc) {
-		if (imageTick == 45) {
+		if (imageTick == 30) {
 			dead();
 		}
-		imageState = (imageTick / 15) % 2;
+		imageState = (imageTick / 5) % 2;
 		gc.setGlobalAlpha(0.6);
 		gc.drawImage(imageFrame.get(imageState), 0, 0);
 		gc.setGlobalAlpha(1.0);
