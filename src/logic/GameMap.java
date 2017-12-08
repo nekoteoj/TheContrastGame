@@ -80,7 +80,7 @@ public class GameMap {
 				if (line.length() <= 0 || line.charAt(0) == '#') {
 					continue;
 				}
-		
+				
 				int[] param = Stream.of(line.split("\\s+"))
 						.mapToInt(Integer::parseInt)
 						.toArray();
@@ -89,6 +89,11 @@ public class GameMap {
 				
 				for (int i = 1; i < param.length; ++i) {
 					objectParam[i-1] = param[i];
+				}
+				
+				if (id == 9999 && objectParam.length == 4) {
+					new EnemySpawner(objectParam[0], objectParam[1], objectParam[2], objectParam[3]); ;
+					continue;
 				}
 				
 				try {
