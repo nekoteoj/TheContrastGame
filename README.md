@@ -27,20 +27,11 @@ Just clone the repository and import it to Eclipse and you are ready to go.
 Just jar the project within Eclipse export tool.
 
 ## Implemented
-* Gravity
-* Movement
-* Main Game Loop
-* Some Controller
-* Some Entity
+* Everything
 
 ## Todos
 
-* Game Map
-* Collision Checking
-* Most Entity
-* Game functionallity
-* Enemy bot
-* Iron out some bugs
+* Good map for presentation
 
 ## Authors
 
