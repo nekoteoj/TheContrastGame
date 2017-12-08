@@ -78,7 +78,15 @@ public abstract class Hero extends MovableEntity implements  Renderable, Attacka
 		if (mp <= 0) {
 			mp = 0.0;
 			}
-	}	
+	}
+	
+	
+	public void increaseHp(int amount) {
+		hp += amount;
+		if (hp > 100) {
+			hp = 100;
+		}
+	}
 	
 	@Override
 	public void decreaseHp(int amount) {
@@ -117,6 +125,8 @@ public abstract class Hero extends MovableEntity implements  Renderable, Attacka
 					setOnAir(false);
 					jumpCount = 0;
 				}
+			} else if (other instanceof Item) {
+			((Item) other).use(this);	
 			}
 		}
 	
