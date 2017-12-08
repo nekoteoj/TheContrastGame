@@ -26,6 +26,7 @@ public class NormalHero extends Hero {
 
 	public static int DEFAULT_HP = 100;
 	public static int DEFAULT_MP = 100;
+	private int walkTick = 0;
 	private int walkState = 0;
 
 	public NormalHero(int x, int y) {
@@ -48,8 +49,8 @@ public class NormalHero extends Hero {
 	@Override
 	public void draw(GraphicsContext gc) {
 		gc.drawImage(imageFrame.get(walkState), position.first - GameCanvas.getCurrentInstance().getStartX(), position.second);
-		gc.setLineWidth(3);
-		gc.strokeRect(position.first - GameCanvas.getCurrentInstance().getStartX(), position.second, width, height);
+//		gc.setLineWidth(3);
+//		gc.strokeRect(position.first - GameCanvas.getCurrentInstance().getStartX(), position.second, width, height);
 	}
 
 	@Override
@@ -61,8 +62,13 @@ public class NormalHero extends Hero {
 			} else if (vx == 0) {
 				walkState = 0;
 			} else {
-				walkState++;
-				walkState %= 2;
+				if (walkTick > 2) {
+					walkState++;
+					walkState %= 2;
+					walkTick = 0;
+				} else {
+					walkTick++;
+				}
 			}
 		} else {
 			if (direction == 0) {
@@ -71,7 +77,12 @@ public class NormalHero extends Hero {
 				} else if (vx == 0) {
 					walkState = 2;
 				} else {
-					walkState = walkState == 2 ? 3 : 2;
+					if (walkTick > 2) {
+						walkState = walkState == 2 ? 3 : 2;
+						walkTick = 0;
+					} else {
+						walkTick++;
+					}
 				}
 			}
 		}

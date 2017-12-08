@@ -13,16 +13,20 @@ import view.GameCanvas;
 
 public class TankBullet extends Bullet {
 	
-	private static List<Image> imageFrame;
+	private static List<Image> imageFrameLeft;
+	private static List<Image> imageFrameRight;
 	private static AudioClip tankBulletSound;
 	
 	private static final int BULLETWIDTH = 26;
 	private static final int BULLETHEIGHT = 22;
 	
 	static {
-		imageFrame = new ArrayList<>();
-		imageFrame.add(new Image(ClassResourceUtility.getResourcePath("img/model/TankBullet/1L.png"), BULLETWIDTH, BULLETHEIGHT, true, true));
-		imageFrame.add(new Image(ClassResourceUtility.getResourcePath("img/model/TankBullet/2L.png"), BULLETWIDTH, BULLETHEIGHT, true, true));
+		imageFrameLeft = new ArrayList<>();
+		imageFrameLeft.add(new Image(ClassResourceUtility.getResourcePath("img/model/TankBullet/1L.png"), BULLETWIDTH, BULLETHEIGHT, true, true));
+		imageFrameLeft.add(new Image(ClassResourceUtility.getResourcePath("img/model/TankBullet/2L.png"), BULLETWIDTH, BULLETHEIGHT, true, true));
+		imageFrameRight = new ArrayList<>();
+		imageFrameRight.add(new Image(ClassResourceUtility.getResourcePath("img/model/TankBullet/1R.png"), BULLETWIDTH, BULLETHEIGHT, true, true));
+		imageFrameRight.add(new Image(ClassResourceUtility.getResourcePath("img/model/TankBullet/2R.png"), BULLETWIDTH, BULLETHEIGHT, true, true));
 		tankBulletSound = new AudioClip(ClassResourceUtility.getResourcePath("sound/shot_tank.wav"));
 	}
 	
@@ -53,7 +57,11 @@ public final static int MP_USE = 0;
 			frameTick = 0;
 			frameState = (frameState + 1) % 2;
 		}
-		gc.drawImage(imageFrame.get(frameState), position.first - GameCanvas.getCurrentInstance().getStartX(), position.second);
+		if (direction == 0) {
+			gc.drawImage(imageFrameLeft.get(frameState), position.first - GameCanvas.getCurrentInstance().getStartX(), position.second);
+		} else {
+			gc.drawImage(imageFrameRight.get(frameState), position.first - GameCanvas.getCurrentInstance().getStartX(), position.second);
+		}
 		frameTick++;
 	}
 

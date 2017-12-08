@@ -55,8 +55,8 @@ this.height = this.meteorHeight;
 
 	@Override
 	public void draw(GraphicsContext gc) {
-gc.setFill(Color.RED);
-		gc.strokeRect(position.first - GameCanvas.getCurrentInstance().getStartX(), position.second, width, height);
+//gc.setFill(Color.RED);
+//		gc.strokeRect(position.first - GameCanvas.getCurrentInstance().getStartX(), position.second, width, height);
 		if (frameTick > 30) {
 			frameTick = 0;
 			frameState = (frameState + 1) % 2;

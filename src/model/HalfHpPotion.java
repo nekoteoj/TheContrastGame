@@ -26,8 +26,8 @@ public class HalfHpPotion extends Item {
 
 		@Override
 		public void draw(GraphicsContext gc) {
-			 gc.setFill(Color.PINK);
-			 gc.fillRect(this.position.first - GameCanvas.getCurrentInstance().getStartX(), this.position.second, POTIONWIDTH, POTIONHEIGHT);
+//			 gc.setFill(Color.PINK);
+//			 gc.fillRect(this.position.first - GameCanvas.getCurrentInstance().getStartX(), this.position.second, POTIONWIDTH, POTIONHEIGHT);
 			 gc.drawImage(image, position.first - GameCanvas.getCurrentInstance().getStartX(), position.second);
 		}
 

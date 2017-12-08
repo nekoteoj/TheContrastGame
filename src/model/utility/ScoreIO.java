@@ -84,8 +84,8 @@ public class ScoreIO {
 					
 				}
 			}
-			String content = "";
-			for (int i = 0; i < 5 && !pq.isEmpty(); i++) {
+			String content = "Top ten ranking :\n\n";
+			for (int i = 0; i < 10 && !pq.isEmpty(); i++) {
 				ScoreNode sn = pq.poll();
 				content += (i + 1) + ".      Name:    " + sn.getName() + "     Time:    " + sn.getMin() + "." + sn.getSec() + "\n";
 			}
