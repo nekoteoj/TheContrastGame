@@ -49,9 +49,6 @@ public abstract class Bullet extends MovableEntity implements Renderable{
 					fixCollide(e);
 					dead();
 					break;
-				} else if (e instanceof MapObject){
-					dead();
-					break;
 				}
 				}
 			}

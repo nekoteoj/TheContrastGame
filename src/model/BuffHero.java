@@ -33,6 +33,18 @@ protected static List<Image> imageFrame;
 	private int walkState;
 	private int effectTick;
 	
+	public BuffHero(int x, int y) {
+		super(x, y, 64, 81);
+		vx = 0;
+		vy = 0;
+		onAir = true;
+		direction = 1;
+		hp = 100;
+		walkState = 0;
+		effectTick = 0;
+		buffSound.play();
+	}
+	
 	public BuffHero(int x, int y, int vx, int vy, int direction) {
 		super(x, y, 64, 81);
 		this.vx = vx;
