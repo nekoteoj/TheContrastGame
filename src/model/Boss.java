@@ -61,7 +61,9 @@ return lightning;
 	}
 
 public void jump() {
+	if (!(this.isOnAir())) {
 this.setVy(-20);
 this.setOnAir(true);
+}
 }
 }
