@@ -1,7 +1,12 @@
 package model.utility;
 
 import exception.MapObjectNotFoundException;
+import model.Boss;
+import model.BuffHero;
 import model.Entity;
+import model.LightningBolt;
+import model.MeteorArc;
+import model.MeteorStrike;
 import model.NormalHero;
 import model.Soldier;
 import model.Tank;
@@ -36,14 +41,19 @@ public class MapObjectFactory {
 		} else if (id == 21 && param.length == 2) {
 			return new Tank(param[0], param[1]);
 		} else if (id == 22 && param.length == 2) {
-			return null; // TODO
+			return new Boss(param[0], param[1]);
 		} else if (id == 23 && param.length == 2) {
 			return new NormalHero(param[0], param[1]);
-		} else if (id == 24) {
-			return null; // TODO
+		} else if (id == 24 && param.length == 2) {
+			return new BuffHero(param[0], param[1]);
 		} else if (id == 100 && param.length == 4) {
-
 			return new TestFloor(param[0], param[1], param[2], param[3]);
+		} else if (id == 101 && param.length == 3) {
+			return new MeteorStrike(param[0], param[1], param[2]);
+		} else if (id == 102 && param.length == 3) {
+			return new MeteorArc(param[0], param[1], param[2]);
+		} else if (id == 103 && param.length == 1) {
+			return new LightningBolt(param[0]);
 		}
 		throw new MapObjectNotFoundException();
 	}
