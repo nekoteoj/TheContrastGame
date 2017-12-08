@@ -27,6 +27,7 @@ public class Boss extends Enemy{
 	}
   
 	private int walkState;
+	public static final int DEFAULT_HP = 200;
 	
 	public Boss(int x, int y) {
 		super(x, y, BOSSWIDTH, BOSSHEIGHT);
@@ -34,8 +35,8 @@ public class Boss extends Enemy{
 		vy = 0;
 		onAir = true;
 		this.findDirectionOfHero();
-		hp = 200;
 		walkState = 2;
+		this.hp = Boss.DEFAULT_HP;
 	}
 	
 
@@ -99,9 +100,14 @@ GameMap.addEntity(bullet);
 return bullet;
 	}
 
-public Entity fireLightning() {
-		Entity lightning = new LightningBolt(5);
+public Entity fireLightning(int damage) {
+		Entity lightning = new LightningBolt(damage);
 GameMap.addEntity(lightning);
 return lightning;
 	}
+
+public void jump() {
+this.setVy(-20);
+this.setOnAir(true);
+}
 }

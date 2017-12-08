@@ -32,7 +32,7 @@ public class GameMap {
 	private static final AudioClip backgroundMusic;
 	
 	static {
-		backgroundMusic = new AudioClip(ClassResourceUtility.getResourcePath("sound/gamebackgroundsound.mp3")); 	
+		backgroundMusic = new AudioClip(ClassResourceUtility.getResourcePath("sound/gamebackgroundsound.wav")); 	
 	}	
 
 	private static int mapLength = 0;
