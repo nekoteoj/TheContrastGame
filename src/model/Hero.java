@@ -2,11 +2,29 @@ package model;
 
 import java.util.List;
 
+import javafx.application.Platform;
+import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.media.AudioClip;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
 import logic.GameMap;
+import main.App;
 import model.map.MapObject;
+import model.utility.ClassResourceUtility;
+import view.GameCanvas;
+import view.GamePane;
+import view.ViewManager;
 
 public abstract class Hero extends MovableEntity implements  Renderable, Attackable, GravityAffected, SpecialAbilityUser{
 
+	private static AudioClip deadSoundEffect;
+	
+	static {
+		deadSoundEffect = new AudioClip(ClassResourceUtility.getResourcePath("sound/herodeadeffect.mp3"));
+	}
+	
 	protected int hp;
 	protected double mp;
 	protected int jumpCount = 0;
@@ -102,7 +120,7 @@ public abstract class Hero extends MovableEntity implements  Renderable, Attacka
 		List<Entity> l = GameMap.getEntityObjects();
 		setOnAir(true);
 		for (Entity o : l) {
-			if (this != o && o.isCollide(this) && o instanceof MapObject) {
+			if (this != o && o.isCollide(this) && (o instanceof MapObject || o instanceof Item)) {
 				fixCollide(o);
 			}
 		}
@@ -149,9 +167,35 @@ GameMap.addEntity(bullet);
 return bullet;
 		
 	}
+	
+	public void doDeadEffect() {
+		GraphicsContext gc = GameCanvas.getCurrentInstance().getGraphicsContext2D();
+		gc.setFill(Color.BLACK);
+		gc.fillRect(0, 0, App.SCREEN_WIDTH, App.SCREEN_HEIGHT);
+		gc.setFont(new Font("Press Start 2P", 200));
+		gc.setFill(Color.WHITE);
+		gc.fillText("T_T", 80, 100);
+		gc.setFont(new Font("Press Start 2P", 26));
+		gc.fillText("This is much like Prog Meth.", 25, 400);
+		try {
+			Thread.sleep(200);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		deadSoundEffect.play();
+	}
 
 	@Override
 	public void dead() {
-//TODO if the hero dies, we should do what? decreasing lives or displaying game over screen?		
+		((GamePane) ViewManager.getInstance().getPane("game")).stopGameLoop();	
+		doDeadEffect();
+		Platform.runLater(() -> {
+			Alert alert = new Alert(AlertType.INFORMATION);
+			alert.setTitle("GAME OVER");
+			alert.setHeaderText("Game Over");
+			alert.setContentText("We are sorry. You are dead.");
+			alert.showAndWait();
+			ViewManager.getInstance().goTo("menu");
+		});
 	}
 }

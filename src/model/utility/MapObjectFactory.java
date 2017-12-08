@@ -4,6 +4,10 @@ import exception.MapObjectNotFoundException;
 import model.Boss;
 import model.BuffHero;
 import model.Entity;
+import model.FullHpPotion;
+import model.FullMpPotion;
+import model.HalfHpPotion;
+import model.HalfMpPotion;
 import model.LightningBolt;
 import model.MeteorArc;
 import model.MeteorStrike;
@@ -54,6 +58,14 @@ public class MapObjectFactory {
 			return new MeteorArc(param[0], param[1], param[2]);
 		} else if (id == 103 && param.length == 1) {
 			return new LightningBolt(param[0]);
+		} else if (id == 200 && param.length == 2) {
+			return new FullHpPotion(param[0], param[1]);
+		} else if (id == 201 && param.length == 2) {
+			return new FullMpPotion(param[0], param[1]);
+		} else if (id == 202 && param.length == 2) {
+			return new HalfHpPotion(param[0], param[1]);
+		} else if (id == 203 && param.length == 2) {
+			return new HalfMpPotion(param[0], param[1]);
 		}
 		throw new MapObjectNotFoundException();
 	}

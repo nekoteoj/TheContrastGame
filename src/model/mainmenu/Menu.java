@@ -15,6 +15,7 @@ import javafx.scene.media.AudioClip;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
 import model.utility.ClassResourceUtility;
+import model.utility.ScoreIO;
 import view.GamePane;
 import view.MainMenuPane;
 import view.ViewManager;
@@ -45,7 +46,7 @@ public class Menu {
 		mainList.add("Scoreboard");
 		mainList.add("Exit");
 		
-		startList.add("Map 1");
+		startList.add("Default Map");
 		startList.add("Load Custom Map");
 		startList.add("Back");
 	}
@@ -94,8 +95,8 @@ public class Menu {
 			clickSound.play();
 			if (selected == 0) {
 				goToStartList();
-			} else if (selected == 1) {
-				
+			} else if (selected == 1) {	
+				ScoreIO.getInstance().showScoreBoard();
 			} else if (selected == 2) {
 				Platform.runLater(() -> {					
 					Platform.exit();

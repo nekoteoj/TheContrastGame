@@ -19,6 +19,8 @@ public class GamePane extends Group {
 	private Timeline gameLoop;
 	private KeyFrame gameKeyFrame;
 	private HeroStatusDrawer heroStatusDrawer;
+	private long startTime;
+	private boolean isCustomMap;
 
 	public GamePane() {
 		super();
@@ -33,7 +35,6 @@ public class GamePane extends Group {
 				gameLoopCallback();
 			}
 		});
-		
 	}
 	
 	private void gameLoopCallback() {
@@ -50,15 +51,18 @@ public class GamePane extends Group {
 	}
 	
 	public void startGameLoop(int map) {
+		isCustomMap = false;
 		gameLoop = new Timeline();
 		gameLoop.setCycleCount(Timeline.INDEFINITE);
 		gameLoop.getKeyFrames().add(gameKeyFrame);
 		gameLoop.play();
 		gameMap.initialize();
 		gameMap.loadMap(map);
+		startTime = System.nanoTime();
 	}
 	
 	public void startGameLoop(URI uri) throws MapObjectNotFoundException {
+		isCustomMap = true;
 		gameLoop = new Timeline();
 		gameLoop.setCycleCount(Timeline.INDEFINITE);
 		gameLoop.getKeyFrames().add(gameKeyFrame);
@@ -74,5 +78,13 @@ public class GamePane extends Group {
 	
 	public GameCanvas getGameCanvas() {
 		return gameCanvas;
+	}
+	
+	public long getStartTime() {
+		return startTime;
+	}
+	
+	public boolean isCustomMap() {
+		return isCustomMap;
 	}
 }
