@@ -13,7 +13,7 @@ public class FloorBox extends RenderableMapObject {
 	private static final Image image;
 
 	static {
-		image = new Image(ClassResourceUtility.getResourcePath("img/model/map/FloorBox/1.png"), BOXWIDTH, BOXHEIGHT,
+		image = new Image(ClassResourceUtility.getResourcePath("img/model/Map/FloorBox/1.png"), BOXWIDTH, BOXHEIGHT,
 				true, true);
 	}
 
