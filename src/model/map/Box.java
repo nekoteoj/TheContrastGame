@@ -10,10 +10,10 @@ public class Box extends RenderableMapObject {
 	private static final int BOXWIDTH = 50;
 	private static final int BOXHEIGHT = 50;
 
-	private static final Image image;
+	private static Image image;
 
 	static {
-		image = new Image(ClassResourceUtility.getResourcePath("img/model/map/Box/1.png"), BOXWIDTH, BOXHEIGHT, true,
+		image = new Image(ClassResourceUtility.getResourcePath("img/model/Map/Box/1.png"), BOXWIDTH, BOXHEIGHT, true,
 				true);
 	}
 
