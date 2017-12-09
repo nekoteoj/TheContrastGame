@@ -13,7 +13,7 @@ public class TestFloor extends Floor implements Renderable {
 	int r = ran.nextInt(256);
 	int g = ran.nextInt(256);
 	int b = ran.nextInt(256);
-	
+
 	public TestFloor(int x, int y, int width, int height) {
 		super(x, y, width, height);
 	}

@@ -11,10 +11,10 @@ import java.util.PriorityQueue;
 import javafx.application.Platform;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
-import view.GamePane;
-import view.ViewManager;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextInputDialog;
+import view.GamePane;
+import view.ViewManager;
 
 public class ScoreIO {
 
@@ -35,7 +35,7 @@ public class ScoreIO {
 		dialog.setTitle("Input your name");
 		dialog.setHeaderText("Could we ask your name?");
 		dialog.setContentText("your name : ");
-		Optional<String> result = dialog.showAndWait();	
+		Optional<String> result = dialog.showAndWait();
 		String name = result.orElse("").trim();
 		name.replaceAll("\\s+", "_");
 		if (name == null || name.length() <= 0) {
@@ -81,13 +81,14 @@ public class ScoreIO {
 					int sec = Integer.parseInt(in[2]);
 					pq.add(new ScoreNode(in[0], min, sec));
 				} catch (Exception e) {
-					
+
 				}
 			}
 			String content = "Top ten ranking :\n\n";
 			for (int i = 0; i < 10 && !pq.isEmpty(); i++) {
 				ScoreNode sn = pq.poll();
-				content += (i + 1) + ".      Name:    " + sn.getName() + "     Time:    " + sn.getMin() + "." + sn.getSec() + "\n";
+				content += (i + 1) + ".      Name:    " + sn.getName() + "     Time:    " + sn.getMin() + "."
+						+ sn.getSec() + "\n";
 			}
 			Alert alert = new Alert(AlertType.INFORMATION, content, ButtonType.OK);
 			alert.setHeaderText("Scoreboard");

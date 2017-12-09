@@ -7,32 +7,34 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.media.AudioClip;
 import javafx.scene.paint.Color;
-import logic.GameMap;
 import main.App;
 import model.utility.ClassResourceUtility;
 import view.GameCanvas;
 
 public class BuffHero extends Hero {
 
-protected static List<Image> imageFrame;
+	protected static List<Image> imageFrame;
 
 	private static AudioClip buffSound;
-	
+
 	static {
 		imageFrame = new ArrayList<>();
-		imageFrame.add(new Image(ClassResourceUtility.getResourcePath("img/model/BuffHero/1R.png"), 64, 81, true, false));
-		imageFrame.add(new Image(ClassResourceUtility.getResourcePath("img/model/BuffHero/2R.png"), 64, 81, true, false));
-		imageFrame.add(new Image(ClassResourceUtility.getResourcePath("img/model/BuffHero/1L.png"), 64, 81, true, false));
-		imageFrame.add(new Image(ClassResourceUtility.getResourcePath("img/model/BuffHero/2L.png"), 64, 81, true, false));
+		imageFrame
+				.add(new Image(ClassResourceUtility.getResourcePath("img/model/BuffHero/1R.png"), 64, 81, true, false));
+		imageFrame
+				.add(new Image(ClassResourceUtility.getResourcePath("img/model/BuffHero/2R.png"), 64, 81, true, false));
+		imageFrame
+				.add(new Image(ClassResourceUtility.getResourcePath("img/model/BuffHero/1L.png"), 64, 81, true, false));
+		imageFrame
+				.add(new Image(ClassResourceUtility.getResourcePath("img/model/BuffHero/2L.png"), 64, 81, true, false));
 		buffSound = new AudioClip(ClassResourceUtility.getResourcePath("sound/buffsound.mp3"));
 	}
 
-	
 	public static int DEFAULT_HP = 100;
-	
+
 	private int walkState;
 	private int effectTick;
-	
+
 	public BuffHero(int x, int y) {
 		super(x, y, 64, 81);
 		vx = 0;
@@ -44,7 +46,7 @@ protected static List<Image> imageFrame;
 		effectTick = 0;
 		buffSound.play();
 	}
-	
+
 	public BuffHero(int x, int y, int vx, int vy, int direction) {
 		super(x, y, 64, 81);
 		this.vx = vx;
@@ -56,19 +58,22 @@ protected static List<Image> imageFrame;
 		buffSound.play();
 		effectTick = 0;
 	}
-	
+
 	@Override
 	public void draw(GraphicsContext gc) {
 		if (effectTick < 15) {
 			effectTick++;
 			gc.setFill(Color.rgb(255, 255, 0, effectTick / 15.0 * 0.4 + 0.6));
-			gc.fillRect(position.first - 10 - GameCanvas.getCurrentInstance().getStartX(), 0, width + 20, App.SCREEN_HEIGHT);
+			gc.fillRect(position.first - 10 - GameCanvas.getCurrentInstance().getStartX(), 0, width + 20,
+					App.SCREEN_HEIGHT);
 		}
-		gc.drawImage(imageFrame.get(walkState), position.first - GameCanvas.getCurrentInstance().getStartX(), position.second);
-//		gc.setLineWidth(3);
-//		gc.strokeRect(position.first - GameCanvas.getCurrentInstance().getStartX(), position.second, width, height);
+		gc.drawImage(imageFrame.get(walkState), position.first - GameCanvas.getCurrentInstance().getStartX(),
+				position.second);
+		// gc.setLineWidth(3);
+		// gc.strokeRect(position.first - GameCanvas.getCurrentInstance().getStartX(),
+		// position.second, width, height);
 	}
-	
+
 	@Override
 	public void move() {
 		super.move();
@@ -93,29 +98,23 @@ protected static List<Image> imageFrame;
 			}
 		}
 	}
-	
+
 	@Override
 	public void increaseMp(double amount) {
-		 this.setMp(100.0);
-		
+		this.setMp(100.0);
+
 	}
 
 	@Override
 	public void decreaseMp(double amount) {
-		 
+
 		return;
 	}
 
 	@Override
 	public void decreaseHp(int amount) {
-		 
+
 		return;
 	}
-	
 
-
-	
-	
-	
-
-	}
+}

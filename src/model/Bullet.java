@@ -1,19 +1,14 @@
 package model;
 
-
-
 import logic.GameMap;
-import model.map.MapObject;
 import model.utility.Pair;
 
-public abstract class Bullet extends MovableEntity implements Renderable{
-	protected int target; //0 to attack enemy, 1 to attack hero
+public abstract class Bullet extends MovableEntity implements Renderable {
+	protected int target; // 0 to attack enemy, 1 to attack hero
 	protected Pair<Integer, Integer> startPosition;
 	protected int attackPoint;
 	protected int velocity;
-	
-	
-	
+
 	public Bullet(int x, int y, int width, int height) {
 		super(x, y, width, height);
 		// TODO Auto-generated constructor stub
@@ -23,6 +18,7 @@ public abstract class Bullet extends MovableEntity implements Renderable{
 		GameMap.getEntityObjects().remove(this);
 		GameMap.getRenderObjects().remove(this);
 	}
+
 	@Override
 	public void move() {
 		position.first += vx;
@@ -36,7 +32,6 @@ public abstract class Bullet extends MovableEntity implements Renderable{
 		checkCollide();
 	}
 
-	
 	@Override
 	public void checkCollide() {
 		for (Entity e : GameMap.getEntityObjects()) {
@@ -50,10 +45,9 @@ public abstract class Bullet extends MovableEntity implements Renderable{
 					dead();
 					break;
 				}
-				}
 			}
 		}
-	
+	}
 
 	@Override
 	public void fixCollide(Entity other) {
@@ -62,9 +56,5 @@ public abstract class Bullet extends MovableEntity implements Renderable{
 		}
 		((Attackable) other).decreaseHp(this.attackPoint);
 	}
-
-	
-
-	
 
 }

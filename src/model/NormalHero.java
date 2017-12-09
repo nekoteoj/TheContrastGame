@@ -5,23 +5,26 @@ import java.util.List;
 
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
-import logic.GameMap;
-import model.map.MapObject;
 import model.utility.ClassResourceUtility;
-import model.utility.Pair;
 import view.GameCanvas;
 
 public class NormalHero extends Hero {
-	
+
 	protected static List<Image> imageFrame;
-	
+
 	static {
 		imageFrame = new ArrayList<>();
-//		imageFrame.add(new Image(ClassResourceUtility.getResourcePath("img/hero.png"), 70, 99, true, true));
-		imageFrame.add(new Image(ClassResourceUtility.getResourcePath("img/model/NormalHero/1R.png"), 50, 77, true, false));
-		imageFrame.add(new Image(ClassResourceUtility.getResourcePath("img/model/NormalHero/2R.png"), 50, 77, true, false));
-		imageFrame.add(new Image(ClassResourceUtility.getResourcePath("img/model/NormalHero/1L.png"), 50, 77, true, false));
-		imageFrame.add(new Image(ClassResourceUtility.getResourcePath("img/model/NormalHero/2L.png"), 50, 77, true, false));
+		// imageFrame.add(new
+		// Image(ClassResourceUtility.getResourcePath("img/hero.png"), 70, 99, true,
+		// true));
+		imageFrame.add(
+				new Image(ClassResourceUtility.getResourcePath("img/model/NormalHero/1R.png"), 50, 77, true, false));
+		imageFrame.add(
+				new Image(ClassResourceUtility.getResourcePath("img/model/NormalHero/2R.png"), 50, 77, true, false));
+		imageFrame.add(
+				new Image(ClassResourceUtility.getResourcePath("img/model/NormalHero/1L.png"), 50, 77, true, false));
+		imageFrame.add(
+				new Image(ClassResourceUtility.getResourcePath("img/model/NormalHero/2L.png"), 50, 77, true, false));
 	}
 
 	public static int DEFAULT_HP = 100;
@@ -38,19 +41,21 @@ public class NormalHero extends Hero {
 		hp = 100;
 		mp = 100;
 	}
-	
+
 	public NormalHero(int x, int y, int vx, int vy, int direction) {
 		this(x, y);
 		this.vx = vx;
 		this.vy = vy;
 		this.direction = direction;
 	}
-	
+
 	@Override
 	public void draw(GraphicsContext gc) {
-		gc.drawImage(imageFrame.get(walkState), position.first - GameCanvas.getCurrentInstance().getStartX(), position.second);
-//		gc.setLineWidth(3);
-//		gc.strokeRect(position.first - GameCanvas.getCurrentInstance().getStartX(), position.second, width, height);
+		gc.drawImage(imageFrame.get(walkState), position.first - GameCanvas.getCurrentInstance().getStartX(),
+				position.second);
+		// gc.setLineWidth(3);
+		// gc.strokeRect(position.first - GameCanvas.getCurrentInstance().getStartX(),
+		// position.second, width, height);
 	}
 
 	@Override
@@ -86,5 +91,5 @@ public class NormalHero extends Hero {
 				}
 			}
 		}
-	}	
 	}
+}

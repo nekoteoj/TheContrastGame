@@ -2,21 +2,18 @@ package model;
 
 import logic.GameMap;
 
-public abstract class MovableEntity extends Entity  implements Movable{
+public abstract class MovableEntity extends Entity implements Movable {
 	protected int vx;
 	protected int vy;
 	protected boolean onAir;
-	protected int direction; //1 right 0 left
+	protected int direction; // 1 right 0 left
 
 	public MovableEntity(int x, int y, int width, int height) {
 		super(x, y, width, height);
 		// TODO Auto-generated constructor stub
 	}
 
-	
-
-
-@Override
+	@Override
 	public void move() {
 		// TODO Auto-generated method stub
 		if (vx == 0 && vy == 0) {
@@ -42,8 +39,7 @@ public abstract class MovableEntity extends Entity  implements Movable{
 		checkCollide();
 	}
 
-
-public int getVx() {
+	public int getVx() {
 		return vx;
 	}
 
@@ -59,29 +55,26 @@ public int getVx() {
 		this.vy = vy;
 	}
 
-	
-
-@Override
+	@Override
 	public int getDirection() {
 		return direction;
 	}
 
-public void halt() {
-	this.vx = 0;
-	
-}
+	public void halt() {
+		this.vx = 0;
 
-public void forward(int speed) {
-	if (this.direction == 1) {
-		this.vx = speed;
-	} else if (this.direction == 0) {
-	this.vx = -speed;	
-	}
 	}
 
+	public void forward(int speed) {
+		if (this.direction == 1) {
+			this.vx = speed;
+		} else if (this.direction == 0) {
+			this.vx = -speed;
+		}
+	}
 
+	public abstract void checkCollide();
 
-public abstract void checkCollide();
-public abstract void fixCollide(Entity other);
+	public abstract void fixCollide(Entity other);
 
 }

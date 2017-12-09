@@ -126,10 +126,11 @@ public class BotManager {
 			}
 		}
 	}
-	
+
 	public void spawnItem() {
-//		System.out.println(internalTick);
-		if (internalTick != 0 && (this.internalTick % 500 == 0 || (this.internalTick + 50) % 500 == 0 || (isBoss && this.internalTick % 200 == 0))) {
+		// System.out.println(internalTick);
+		if (internalTick != 0 && (this.internalTick % 500 == 0 || (this.internalTick + 50) % 500 == 0
+				|| (isBoss && this.internalTick % 200 == 0))) {
 			int x = GameCanvas.getCurrentInstance().getStartX() + 50 + random.nextInt(App.SCREEN_WIDTH - 100);
 			int y = 100 + random.nextInt(300);
 			int id = 200 + random.nextInt(4);
@@ -148,8 +149,8 @@ public class BotManager {
 		List<Entity> l = GameMap.getEntityObjects();
 		for (Entity b : l) {
 			if (b instanceof Bullet) {
-				if ((b.getPosition().first - e.getPosition().first < 0) && (b.getPosition().first - e.getPosition().first > -60)
-						&& (((Bullet) b).getVx() > 0)) {
+				if ((b.getPosition().first - e.getPosition().first < 0)
+						&& (b.getPosition().first - e.getPosition().first > -60) && (((Bullet) b).getVx() > 0)) {
 					return true;
 				} else if ((b.getPosition().first - e.getPosition().first > 0)
 						&& (b.getPosition().first - e.getPosition().first < 60) && (((Bullet) b).getVx() < 0)) {

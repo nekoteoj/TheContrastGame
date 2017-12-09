@@ -7,5 +7,5 @@ public abstract class RenderableMapObject extends MapObject implements Renderabl
 	public RenderableMapObject(int x, int y, int width, int height) {
 		super(x, y, width, height);
 	}
-	
+
 }

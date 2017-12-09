@@ -14,20 +14,15 @@ import model.MeteorStrike;
 import model.NormalHero;
 import model.Soldier;
 import model.Tank;
-import model.map.*;
+import model.map.Box;
+import model.map.Floor;
+import model.map.FloorBox;
+import model.map.TestFloor;
 
 /**
  * 
- * Map Id : 
- * 1 : Floor 
- * 2 : FloorBox 
- * 3 : Box 
- * 20 : Soldier 
- * 21 : Tank 
- * 22 : Boss 
- * 23 : NormalHero
- * 24 : BuffHero 
- * 100 : TestFloor
+ * Map Id : 1 : Floor 2 : FloorBox 3 : Box 20 : Soldier 21 : Tank 22 : Boss 23 :
+ * NormalHero 24 : BuffHero 100 : TestFloor
  *
  */
 

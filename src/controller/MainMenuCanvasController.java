@@ -42,10 +42,9 @@ public class MainMenuCanvasController {
 			pressedKey.remove(code);
 		});
 	}
-	
+
 	public void reset() {
 		pressedKey.clear();
 	}
 
 }
-

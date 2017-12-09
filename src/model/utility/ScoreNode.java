@@ -1,11 +1,11 @@
 package model.utility;
 
 public class ScoreNode implements Comparable<ScoreNode> {
-	
+
 	private String name;
 	private int min;
 	private int sec;
-	
+
 	public ScoreNode(String name, int min, int sec) {
 		this.name = name;
 		this.min = min;
