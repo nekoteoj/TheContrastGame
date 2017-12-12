@@ -105,7 +105,6 @@ public class GameMap {
 
 			if (id == 9999 && objectParam.length == 4) {
 				new EnemySpawner(objectParam[0], objectParam[1], objectParam[2], objectParam[3]);
-				;
 				continue;
 			} else if (id == 10000 && objectParam.length == 4) {
 				EnemySpawner.spawnSoldier(objectParam[0], objectParam[1], objectParam[2], objectParam[3]);

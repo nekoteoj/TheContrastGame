@@ -77,7 +77,10 @@ public abstract class Enemy extends MovableEntity implements Renderable, Attacka
 	}
 
 	public void findDirectionOfHero() {
-		Hero hero = (Hero) GameMap.getEntityObjects().parallelStream().filter(x -> x instanceof Hero).findAny().get();
+		Hero hero = (Hero) GameMap.getEntityObjects().parallelStream().filter(x -> x instanceof Hero).findAny().orElse(null);
+		if (hero == null) {
+			return;
+		}
 		if (hero.getPosition().first < this.position.first) {
 			this.direction = 0; // left
 		} else {

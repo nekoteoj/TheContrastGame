@@ -36,6 +36,7 @@ public class BotManager {
 	}
 
 	public void handleCall() throws InterruptedException {
+		this.mapLength = GameMap.getMapLength() > 0 ? GameMap.getMapLength() : 1600;
 		if (this.isFirstInitialize) {
 			Thread.sleep(1500);
 
@@ -67,7 +68,7 @@ public class BotManager {
 		spawnItem();
 		this.internalTick += 1;
 		if (!(this.isBoss) && !(this.isEnemyRemaining)) {
-			EnemySpawner.spawnBoss(this.mapLength - 450, 100);
+			EnemySpawner.spawnBoss(this.mapLength - 250, 100);
 			this.isBoss = true;
 		}
 	}
