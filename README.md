@@ -31,7 +31,7 @@ Just jar the project within Eclipse export tool.
 
 ## Todos
 
-* Good map for presentation
+* Documentation and UML Diagram
 
 ## Authors
 
